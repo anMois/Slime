@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Create_Slime : MonoBehaviour
 {
@@ -57,9 +58,10 @@ public class Create_Slime : MonoBehaviour
         Debug.Log(rannum);
         //Instantiate(obj[0], new Vector3(0, 0, 0), Quaternion.identity);
     }
-
-    private void Update()
+    
+    public void SceneChange()
     {
-      
+        SceneManager.LoadScene("shops");
+        //DontDestroyOnLoad();
     }
 }
