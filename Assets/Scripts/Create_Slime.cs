@@ -8,6 +8,13 @@ public class Create_Slime : MonoBehaviour
     public GameObject[] obj;
     public Slime slim;
 
+    public UIManager _uiManager;
+
+    private void Awake()
+    {
+        _uiManager = GetComponent<UIManager>();
+    }
+
     public void Create()
     {
         int rannum = Random.Range(0, 100);
@@ -62,6 +69,6 @@ public class Create_Slime : MonoBehaviour
     public void SceneChange()
     {
         SceneManager.LoadScene("shops");
-        //DontDestroyOnLoad();
+        DontDestroyOnLoad(this);
     }
 }
