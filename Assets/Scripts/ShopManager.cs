@@ -1,18 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public UIManager gold;
+    public GameObject Coin_image;
+
+    private UIManager _uiManager;
+    private Create_Slime slimes_count;
+    public float shCoin_num;
 
     private void Awake()
     {
-        gold = GameObject.Find("GameObject").GetComponent<UIManager>();
+        Coin_image.SetActive(false);
+        slimes_count = GameObject.Find("OBJ").GetComponent<Create_Slime>();
+        _uiManager = GameObject.Find("OBJ").GetComponent<UIManager>();
     }
 
-    private void Start()
+    private void Update()
     {
-        Debug.Log(gold.goldscore);
+        if(slimes_count.slim.cleaner_s >= 2)
+        {
+            shCoin_num += Time.deltaTime;
+
+            if (shCoin_num > 10.0f)
+            {
+                Coin_image.SetActive(true);
+            }
+        }
+        
+    }
+
+    public void AddCoin()
+    {
+        Coin_image.SetActive(false);
+        _uiManager.goldscore = (int)shCoin_num + _uiManager.goldscore;
+
+        shCoin_num = 0.0f;
     }
 }

@@ -7,12 +7,17 @@ public class UIManager : MonoBehaviour
 {
     public Text goldscore_text;
 
+    public GameObject Shops;
+
     public int goldscore = 0;
+
+    private bool ischeck = false;
     private float delaytime;
 
     private void Awake()
     {
         goldscore_text = GameObject.Find("Canvas/Gold/Gold_Text").GetComponent<Text>();
+        Shops.SetActive(ischeck);
     }
 
     private void Start()
@@ -31,5 +36,11 @@ public class UIManager : MonoBehaviour
             
             delaytime = 0.0f;
         }
+    }
+
+    public void ShopsCheck()
+    {
+        ischeck = !ischeck;
+        Shops.SetActive(ischeck);
     }
 }

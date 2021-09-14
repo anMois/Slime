@@ -66,9 +66,4 @@ public class Create_Slime : MonoBehaviour
         //Instantiate(obj[0], new Vector3(0, 0, 0), Quaternion.identity);
     }
     
-    public void SceneChange()
-    {
-        SceneManager.LoadScene("shops");
-        DontDestroyOnLoad(this);
-    }
 }
