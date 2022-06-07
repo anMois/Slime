@@ -16,13 +16,13 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        goldscore_text = GameObject.Find("Canvas/Gold/Gold_Text").GetComponent<Text>();
+        //goldscore_text = GameObject.Find("Canvas/Gold/Gold_Text").GetComponent<Text>();
         Shops.SetActive(ischeck);
     }
 
     private void Start()
     {
-        goldscore_text.text = ": " + goldscore.ToString();
+        //goldscore_text.text = ": " + goldscore.ToString();
     }
 
     private void Update()
