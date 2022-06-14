@@ -1,46 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Text goldscore_text;
+    public int gold;
+    int value;
 
-    public GameObject Shops;
-
-    public int goldscore = 0;
-
-    private bool ischeck = false;
-    private float delaytime;
+    public Text gold_text;
 
     private void Awake()
     {
-        //goldscore_text = GameObject.Find("Canvas/Gold/Gold_Text").GetComponent<Text>();
-        Shops.SetActive(ischeck);
-    }
-
-    private void Start()
-    {
-        //goldscore_text.text = ": " + goldscore.ToString();
+        gold_text = GameObject.Find("Gold/Text").GetComponent<Text>();
     }
 
     private void Update()
     {
-        delaytime += Time.deltaTime;
-
-        if (delaytime > 2.0f)
-        {
-            goldscore++;
-            goldscore_text.text = ": " + goldscore.ToString();
-            
-            delaytime = 0.0f;
-        }
+        value = gold;
     }
 
-    public void ShopsCheck()
+    private void LateUpdate()
     {
-        ischeck = !ischeck;
-        Shops.SetActive(ischeck);
+        float num = Mathf.SmoothStep(value, gold, 0.5f);
+        
+        gold_text.text = String.Format("{0:n0}", num);
+        num = value;
     }
 }
