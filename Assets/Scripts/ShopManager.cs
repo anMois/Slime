@@ -20,7 +20,7 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if(slimes_count.slim.cleaner_s >= 2)
+        if(slimes_count._slime.cleaner_s >= 2)
         {
             shCoin_num += Time.deltaTime;
 
@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
 
     public void CheckSlime()
     {
-        if (slimes_count.slim.cleaner_s >= 2)
+        if (slimes_count._slime.cleaner_s >= 2)
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
         else
             Debug.Log("클리너 슬라임이 부족합니다.");

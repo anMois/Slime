@@ -5,18 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class Create_Slime : MonoBehaviour
 {
-    public GameObject[] obj;
-    public Slime slim;
+    public GameObject obj;
+    //public GameObject[] obj;
+    public Slime _slime;
 
     public UIManager _uiManager;
+    GameManager _Gm;
 
     private void Awake()
     {
-        _uiManager = GetComponent<UIManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Gm = GetComponent<GameManager>();
     }
 
     public void Create()
     {
+        Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
+        _slime.orignal_s++;
+        /*
         int rannum = Random.Range(0, 100);
 
         if(rannum <= 40)
@@ -63,7 +69,7 @@ public class Create_Slime : MonoBehaviour
         }
 
         Debug.Log(rannum);
-        //Instantiate(obj[0], new Vector3(0, 0, 0), Quaternion.identity);
+        */
     }
-    
+
 }

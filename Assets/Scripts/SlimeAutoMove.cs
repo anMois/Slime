@@ -26,8 +26,13 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void Awake()
     {
+        TopLeft = GameObject.Find("Border Group/TopLeft");
+        BottomRight = GameObject.Find("Border Group/BottomRight");
+        Manager = GameObject.Find("GameManager");
+
         isMove = transform.GetComponent<Animator>();
         slime_sprite = transform.GetComponent<SpriteRenderer>();
+
         tl = TopLeft.transform;
         br = BottomRight.transform;
     }

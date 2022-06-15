@@ -6,26 +6,38 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public int gold;
-    int value;
+    public int Glod;
 
-    public Text gold_text;
+    public int SlimeCount;   
+    int value;
+    int MaxSlime;
+
+    Slime _slime;
+
+    public Text gold_Text;
+    public Text slimecount_Text;
 
     private void Awake()
     {
-        gold_text = GameObject.Find("Gold/Text").GetComponent<Text>();
+        gold_Text = GameObject.Find("Gold/Text").GetComponent<Text>();
+        slimecount_Text = GameObject.Find("SlimeCount/Text").GetComponent<Text>();
+
+        _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
     }
 
-    private void Update()
+    private void Start()
     {
-        value = gold;
+        MaxSlime = 10;
     }
 
     private void LateUpdate()
     {
-        float num = Mathf.SmoothStep(value, gold, 0.5f);
+        float num = Mathf.SmoothStep(value, Glod, 0.5f);
         
-        gold_text.text = String.Format("{0:n0}", num);
-        num = value;
+        gold_Text.text = String.Format("{0:n0}", num);
+        value = (int)num;
+
+        SlimeCount = _slime.orignal_s + _slime.poision_s + _slime.sticky_s + _slime.blood_s + _slime.acid_s;
+        slimecount_Text.text = String.Format("{0} / {1}", SlimeCount, MaxSlime);
     }
 }
