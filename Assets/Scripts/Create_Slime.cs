@@ -20,8 +20,14 @@ public class Create_Slime : MonoBehaviour
 
     public void Create()
     {
-        Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
-        _slime.orignal_s++;
+        if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
+            Debug.Log("Capacity Exceeded!(용량 초과!)");
+        else
+        {
+            Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
+            _slime.orignal_s++;
+        }
+        
         /*
         int rannum = Random.Range(0, 100);
 
