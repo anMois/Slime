@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 
     int value;
 
+    public bool isLive;
     public bool isClick;
 
     GameObject option_Panel;
@@ -37,6 +38,8 @@ public class UIManager : MonoBehaviour
         _ani = GameObject.Find("Slime Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
+
+        isLive = true;
     }
 
     private void Start()
@@ -79,12 +82,14 @@ public class UIManager : MonoBehaviour
             _ani.SetTrigger("doHide");
             plant_Img.sprite = hidesp;
             isClick = false;
+            isLive = true;
         }
         else
         {
             _ani.SetTrigger("doShow");
             plant_Img.sprite = showsp;
             isClick = true;
+            isLive = false;
         }
     }
 
@@ -92,17 +97,29 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            if (isClick)
-            {
-                option_Panel.SetActive(false);
-                Time.timeScale = 1;
-                isClick = false;
-            }
-            else
+            if (isLive)
             {
                 option_Panel.SetActive(true);
                 Time.timeScale = 0;
                 isClick = true;
+                isLive = false;
+            }
+            else
+            {
+                if(option_Panel.activeSelf == true)
+                {
+                    option_Panel.SetActive(false);
+                    Time.timeScale = 1;
+                    isClick = false;
+                    isLive = true;
+                }
+                else
+                {
+                    _ani.SetTrigger("doHide");
+                    plant_Img.sprite = hidesp;
+                    isClick = false;
+                    isLive = true;
+                }
             }
         }
     }
