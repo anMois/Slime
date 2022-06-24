@@ -10,8 +10,9 @@ public class UIManager : MonoBehaviour
     public int SlimeCount;
     public int MaxSlime;
 
-    public Text gold_Text;
-    public Text slimecount_Text;
+    Text gold_Text;
+    Text slimecount_Text;
+    public Text error_Text;
 
     public Sprite showsp;
     public Sprite hidesp;
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
     public bool isClick;
 
     GameObject option_Panel;
+    public GameObject error_Panel;
 
     Image plant_Img;
     Animator _ani;
@@ -32,9 +34,12 @@ public class UIManager : MonoBehaviour
     {
         gold_Text = GameObject.Find("Gold/Text").GetComponent<Text>();
         slimecount_Text = GameObject.Find("SlimeCount/Text").GetComponent<Text>();
+        error_Text = GameObject.Find("Error Panel/Text").GetComponent<Text>();
+
         plant_Img = GameObject.Find("LeftBtn/Plant Button").GetComponent<Image>();
 
         option_Panel = GameObject.Find("Option Panel");
+        error_Panel = GameObject.Find("Error Panel");
         _ani = GameObject.Find("Slime Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
@@ -45,6 +50,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         option_Panel.SetActive(false);
+        error_Panel.SetActive(false);
         MaxSlime = 10;
     }
 
@@ -67,7 +73,12 @@ public class UIManager : MonoBehaviour
     public void MaxSlimeAdd()
     {
         if (Gold < 500)
-            Debug.Log("Gold is Short!");
+        {
+            error_Panel.SetActive(true);
+            error_Text.text = "Gold is Short!";
+            isClick = true;
+            isLive = false;
+        } 
         else
         {
             Gold -= 500;
@@ -122,5 +133,12 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ErrorPanel()
+    {
+        error_Panel.SetActive(false);
+        isClick = false;
+        isLive = true;
     }
 }

@@ -21,7 +21,12 @@ public class Create_Slime : MonoBehaviour
     public void Create()
     {
         if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
-            Debug.Log("Capacity Exceeded!(용량 초과!)");
+        {
+            _uiManager.error_Panel.SetActive(true);
+            _uiManager.error_Text.text = "Capacity Exceeded!";
+            _uiManager.isClick = true;
+            _uiManager.isLive = false;
+        }
         else
         {
             Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
