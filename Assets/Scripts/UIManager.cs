@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        Option();
+        OptionCheck();
     }
 
     private void LateUpdate()
@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Option()
+    public void OptionCheck()
     {
         if (Input.GetButtonDown("Cancel"))
         {
@@ -140,5 +140,10 @@ public class UIManager : MonoBehaviour
         error_Panel.SetActive(false);
         isClick = false;
         isLive = true;
+    }
+
+    public void AddGold()
+    {
+        Gold += 500;
     }
 }
