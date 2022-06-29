@@ -23,7 +23,7 @@ public class Create_Slime : MonoBehaviour
         if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
         {
             _uiManager.error_Panel.SetActive(true);
-            _uiManager.error_Text.text = "Capacity Exceeded!";
+            _uiManager.error_Text.text = "슬라임 과부화 상태!";
             _uiManager.isClick = true;
             _uiManager.isLive = false;
         }
@@ -82,5 +82,4 @@ public class Create_Slime : MonoBehaviour
         Debug.Log(rannum);
         */
     }
-
 }

@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
         if (Gold < 500)
         {
             error_Panel.SetActive(true);
-            error_Text.text = "Gold is Short!";
+            error_Text.text = "골드가 부족해요...";
             isClick = true;
             isLive = false;
         } 

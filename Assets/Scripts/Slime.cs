@@ -22,3 +22,5 @@ public class Slime
     public int cleaner_s;
     public int blood_s;
 }
+
+
