@@ -6,9 +6,13 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    
     public int Gold;
     public int SlimeCount;
     public int MaxSlime;
+
+    int value;
+    int page;
 
     Text gold_Text;
     Text slimecount_Text;
@@ -16,8 +20,6 @@ public class UIManager : MonoBehaviour
 
     public Sprite showsp;
     public Sprite hidesp;
-
-    int value;
 
     public bool isLive;
     public bool isClick;
@@ -28,7 +30,14 @@ public class UIManager : MonoBehaviour
     Image plant_Img;
     Animator _ani;
 
-    Slime _slime;  
+    GameManager _gm;
+    Slime _slime;
+
+    #region 슬라임변경변수
+    Image slimeimg;
+    Text slimename;
+    Text slimegold;
+    #endregion
 
     private void Awake()
     {
@@ -42,13 +51,19 @@ public class UIManager : MonoBehaviour
         error_Panel = GameObject.Find("Error Panel");
         _ani = GameObject.Find("Slime Panel").GetComponent<Animator>();
 
+        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
 
+        slimeimg = GameObject.Find("Slime Panel/Unlock Group/Image").GetComponent<Image>();
+        slimename = GameObject.Find("Slime Panel/Unlock Group/Name Text").GetComponent<Text>();
+        slimegold = GameObject.Find("Slime Panel/Unlock Group/Button/Text").GetComponent<Text>();
+        
         isLive = true;
     }
 
     private void Start()
     {
+        SlimeChage();
         option_Panel.SetActive(false);
         error_Panel.SetActive(false);
         MaxSlime = 10;
@@ -140,6 +155,35 @@ public class UIManager : MonoBehaviour
         error_Panel.SetActive(false);
         isClick = false;
         isLive = true;
+    }
+
+    public void PageUp()
+    {
+        if (page == 5)
+            return;
+        else
+        {
+            page += 1;
+            SlimeChage();
+        }
+    }
+
+    public void PageDown()
+    {
+        if (page == 0)
+            return;
+        else
+        {
+            page -= 1;
+            SlimeChage();
+        }
+    }
+
+    void SlimeChage()
+    {
+        slimeimg.sprite = _gm.SlimeSpriteList[page];
+        slimename.text = _gm.SlimeNameList[page];
+        slimegold.text = String.Format("{0:n0}", _gm.SlimeGoldList[page]);
     }
 
     public void AddGold()

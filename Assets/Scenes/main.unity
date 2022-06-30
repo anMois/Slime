@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &198636366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -824,6 +824,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a0528d1f5898b478b020fb56cf258f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SlimeSpriteList:
+  - {fileID: 21300000, guid: f4ba7a5e8b25ae241a6c94d4d6df858d, type: 3}
+  - {fileID: 21300000, guid: 932ce8ce7b8fd8e4d9fb9bce6a7e0b7d, type: 3}
+  - {fileID: 21300000, guid: 590b73e132435194da7d40dc8a3816f0, type: 3}
+  - {fileID: 21300000, guid: ce60f325abe16e1408f2d226e825c21a, type: 3}
+  - {fileID: 21300000, guid: 230db3240b492574094d76e3dbd404a1, type: 3}
+  - {fileID: 21300000, guid: b8fd21ad16123364aaee0da8f1b3746b, type: 3}
+  SlimeNameList:
+  - "\uAC70\uB300"
+  - "\uC2A4\uD2F0\uD0A4"
+  - "\uC5D0\uC2DC\uB4DC"
+  - "\uD3EC\uC774\uC98C"
+  - "\uD074\uB9AC\uB108"
+  - "\uBE14\uB7EC\uB4DC"
+  SlimeGoldList: f4010000ee020000e8030000e2040000dc050000d6060000
   PointList:
   - {x: -3, y: -1, z: -1}
   - {x: 0, y: 0, z: 0}
@@ -933,7 +948,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 401401751}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1335412281}
+        m_MethodName: PageUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &401401751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2033,7 +2059,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 677941967}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1335412281}
+        m_MethodName: PageDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &677941967
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public Sprite[] SlimeSpriteList;
+    public string[] SlimeNameList;
+    public int[] SlimeGoldList;
+
     public Vector3[] PointList;
 
     public RuntimeAnimatorController[] LevelAc;
