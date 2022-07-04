@@ -6,14 +6,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    
+    #region 기본데이터
     public int Gold;
     public int SlimeCount;
     public int MaxSlime;
 
     int value;
-    int page;
 
+    public bool isLive;
+    public bool isClick;
+    #endregion
+
+    #region ui
     Text gold_Text;
     Text slimecount_Text;
     public Text error_Text;
@@ -21,51 +25,36 @@ public class UIManager : MonoBehaviour
     public Sprite showsp;
     public Sprite hidesp;
 
-    public bool isLive;
-    public bool isClick;
-
-    GameObject option_Panel;
-    public GameObject error_Panel;
-
     Image plant_Img;
     Animator _ani;
-
-    GameManager _gm;
-    Slime _slime;
-
-    #region 슬라임변경변수
-    Image slimeimg;
-    Text slimename;
-    Text slimegold;
     #endregion
+
+    #region GameObject
+    GameObject option_Panel;
+    public GameObject error_Panel;
+    #endregion
+
+    Slime _slime;
 
     private void Awake()
     {
         gold_Text = GameObject.Find("Gold/Text").GetComponent<Text>();
         slimecount_Text = GameObject.Find("SlimeCount/Text").GetComponent<Text>();
-        error_Text = GameObject.Find("Error Panel/Text").GetComponent<Text>();
+        error_Text = GameObject.Find("Canvas").transform.Find("Error Panel/Text").GetComponent<Text>();
 
         plant_Img = GameObject.Find("LeftBtn/Plant Button").GetComponent<Image>();
 
-        option_Panel = GameObject.Find("Option Panel");
-        error_Panel = GameObject.Find("Error Panel");
+        option_Panel = GameObject.Find("Canvas").transform.Find("Option Panel").gameObject;
+        error_Panel = GameObject.Find("Canvas").transform.Find("Error Panel").gameObject;
         _ani = GameObject.Find("Slime Panel").GetComponent<Animator>();
 
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
 
-        slimeimg = GameObject.Find("Slime Panel/Unlock Group/Image").GetComponent<Image>();
-        slimename = GameObject.Find("Slime Panel/Unlock Group/Name Text").GetComponent<Text>();
-        slimegold = GameObject.Find("Slime Panel/Unlock Group/Button/Text").GetComponent<Text>();
-        
         isLive = true;
     }
 
     private void Start()
     {
-        SlimeChage();
-        option_Panel.SetActive(false);
-        error_Panel.SetActive(false);
         MaxSlime = 10;
     }
 
@@ -155,35 +144,6 @@ public class UIManager : MonoBehaviour
         error_Panel.SetActive(false);
         isClick = false;
         isLive = true;
-    }
-
-    public void PageUp()
-    {
-        if (page == 5)
-            return;
-        else
-        {
-            page += 1;
-            SlimeChage();
-        }
-    }
-
-    public void PageDown()
-    {
-        if (page == 0)
-            return;
-        else
-        {
-            page -= 1;
-            SlimeChage();
-        }
-    }
-
-    void SlimeChage()
-    {
-        slimeimg.sprite = _gm.SlimeSpriteList[page];
-        slimename.text = _gm.SlimeNameList[page];
-        slimegold.text = String.Format("{0:n0}", _gm.SlimeGoldList[page]);
     }
 
     public void AddGold()
