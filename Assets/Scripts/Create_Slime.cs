@@ -9,7 +9,7 @@ public class Create_Slime : MonoBehaviour
     //public GameObject[] obj;
     public Slime _slime;
 
-    public UIManager _uiManager;
+    UIManager _uiManager;
     GameManager _Gm;
 
     private void Awake()
@@ -22,10 +22,7 @@ public class Create_Slime : MonoBehaviour
     {
         if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
         {
-            _uiManager.error_Panel.SetActive(true);
-            _uiManager.error_Text.text = "슬라임 과부화 상태!";
-            _uiManager.isClick = true;
-            _uiManager.isLive = false;
+            _uiManager.ShowError("슬라임 과부화 상태!");
         }
         else
         {

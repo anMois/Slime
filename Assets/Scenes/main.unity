@@ -1002,7 +1002,6 @@ MonoBehaviour:
     poision_s: 0
     cleaner_s: 0
     blood_s: 0
-  _uiManager: {fileID: 0}
 --- !u!1 &401401748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,7 +1951,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335412281}
-        m_MethodName: ErrorPanel
+        m_MethodName: HideError
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3372,10 +3371,8 @@ MonoBehaviour:
   MaxSlime: 0
   isLive: 0
   isClick: 0
-  error_Text: {fileID: 0}
   showsp: {fileID: 21300000, guid: 0cc98cf945627544e8761d70cbbbb24a, type: 3}
   hidesp: {fileID: 21300000, guid: 1edfcc716ab5b4940a23aa75e0352142, type: 3}
-  error_Panel: {fileID: 0}
 --- !u!1 &1392498457
 GameObject:
   m_ObjectHideFlags: 0

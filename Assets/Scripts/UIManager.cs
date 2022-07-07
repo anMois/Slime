@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     #region ui
     Text gold_Text;
     Text slimecount_Text;
-    public Text error_Text;
+    Text error_Text;
 
     public Sprite showsp;
     public Sprite hidesp;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     #region GameObject
     GameObject option_Panel;
-    public GameObject error_Panel;
+    GameObject error_Panel;
     #endregion
 
     Slime _slime;
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
         option_Panel = GameObject.Find("Canvas").transform.Find("Option Panel").gameObject;
         error_Panel = GameObject.Find("Canvas").transform.Find("Error Panel").gameObject;
+
         _ani = GameObject.Find("Slime Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
@@ -78,10 +79,7 @@ public class UIManager : MonoBehaviour
     {
         if (Gold < 500)
         {
-            error_Panel.SetActive(true);
-            error_Text.text = "골드가 부족해요...";
-            isClick = true;
-            isLive = false;
+            ShowError("골드가 부족해요...");
         } 
         else
         {
@@ -139,7 +137,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ErrorPanel()
+    public void ShowError(String msg)
+    {
+        error_Panel.SetActive(true);
+        error_Text.text = msg;
+        isClick = true;
+        isLive = false;
+    }
+
+    public void HideError()
     {
         error_Panel.SetActive(false);
         isClick = false;

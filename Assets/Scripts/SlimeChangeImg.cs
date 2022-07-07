@@ -13,15 +13,18 @@ public class SlimeChangeImg : MonoBehaviour
     #region ui
     Image slimeimg;
     Image locksimg;
+    Image conditionimg;
 
     Text slimename;
     Text slimegold;
     Text pagetext;
+    Text conditiontext;
     #endregion
 
     GameObject lockobj;
 
     GameManager _gm;
+    Slime _slime;
 
     private void Awake()
     {
@@ -31,8 +34,11 @@ public class SlimeChangeImg : MonoBehaviour
         pagetext = GameObject.Find("Page Text").GetComponent<Text>();
 
         lockobj = GameObject.Find("Lock Group").transform.Find("Lock Group").gameObject;
-        locksimg = GameObject.Find("Lock Group").transform.Find("Lock Group/Image").gameObject.GetComponent<Image>();
+        locksimg = GameObject.Find("Lock Group").transform.Find("Lock Group/Image").GetComponent<Image>();
+        conditionimg = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Image").GetComponent<Image>();
+        conditiontext = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Text").GetComponent<Text>();
 
+        _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -72,6 +78,8 @@ public class SlimeChangeImg : MonoBehaviour
             lockobj.SetActive(true);
             locksimg.sprite = _gm.SlimeSpriteList[page];
             locksimg.SetNativeSize();
+            conditionimg.sprite = _gm.SlimeSpriteList[page];
+            conditiontext.text = String.Format("{0} / 20", _slime.orignal_s);
         }
         else
         {
