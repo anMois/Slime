@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8349983534209854006}
   m_Layer: 0
   m_Name: Jelly 0
-  m_TagString: Untagged
+  m_TagString: Orignal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ Animator:
   m_GameObject: {fileID: 8349983534209854002}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0d3842a994495234589cb6d54c1215e2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8c7845f2d3a629943afc1519da279300, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

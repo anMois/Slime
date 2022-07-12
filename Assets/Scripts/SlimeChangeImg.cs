@@ -47,6 +47,11 @@ public class SlimeChangeImg : MonoBehaviour
         SlimeChage();
     }
 
+    private void FixedUpdate()
+    {
+        conditiontext.text = String.Format("{0:00} / 20", SlimeCount(page));
+    }
+
     public void PageUp()
     {
         if (page == 5)
@@ -79,7 +84,6 @@ public class SlimeChangeImg : MonoBehaviour
             locksimg.sprite = _gm.SlimeSpriteList[page];
             locksimg.SetNativeSize();
             conditionimg.sprite = _gm.SlimeSpriteList[page];
-            conditiontext.text = String.Format("{0} / 20", _slime.orignal_s);
         }
         else
         {
@@ -88,6 +92,37 @@ public class SlimeChangeImg : MonoBehaviour
             slimeimg.SetNativeSize();
             slimename.text = _gm.SlimeNameList[page];
             slimegold.text = String.Format("{0:n0}", _gm.SlimeGoldList[page]);
+        }
+    }
+
+    int SlimeCount(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                return _slime.orignal_s;
+            case 1:
+                return _slime.sticky_s;
+            case 2:
+                return _slime.acid_s;
+            case 3:
+                return _slime.poision_s;
+            case 4:
+                return _slime.blood_s;
+            case 5:
+                return _slime.cleaner_s;
+            default:
+                return 0;
+        }
+    }
+
+    public void UnlockBtn()
+    {
+        if (SlimeCount(page) == 20)
+        {
+            UnlockList[page] = true;
+            lockobj.SetActive(false);
+            SlimeChage();
         }
     }
 }

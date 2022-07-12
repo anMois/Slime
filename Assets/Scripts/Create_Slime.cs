@@ -26,8 +26,9 @@ public class Create_Slime : MonoBehaviour
         }
         else
         {
-            Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
+            obj.tag = "Orignal";
             _slime.orignal_s++;
+            Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
         }
         
         /*
