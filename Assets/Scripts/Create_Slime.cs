@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Create_Slime : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Create_Slime : MonoBehaviour
         {
             obj.tag = "Orignal";
             _slime.orignal_s++;
+            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[5];
             Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
         }
         
