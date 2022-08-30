@@ -2,16 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SlimeType
-{
-    ORIGNAL,
-    STICKY,
-    ACID,
-    POISION,
-    CLEANER,
-    BLOOD
-}
-
 [System.Serializable]
 public class Slime
 {

@@ -29,7 +29,7 @@ public class Create_Slime : MonoBehaviour
         {
             obj.tag = "Orignal";
             _slime.orignal_s++;
-            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[5];
+            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[0];
             Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
         }
         

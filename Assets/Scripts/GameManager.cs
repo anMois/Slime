@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Sprite[] SlimeSpriteList;
     public string[] SlimeNameList;
+    public int[] SlimeCreateGoldList;
     public int[] SlimeGoldList;
 
     public Vector3[] PointList;
