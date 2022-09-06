@@ -10,6 +10,8 @@ public class Create_Slime : MonoBehaviour
     //public GameObject[] obj;
     public Slime _slime;
 
+    public bool[] isCrtCheck;
+
     UIManager _uiManager;
     GameManager _Gm;
 
@@ -17,6 +19,13 @@ public class Create_Slime : MonoBehaviour
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _Gm = GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        int num = _Gm.PointList.Length;
+        isCrtCheck = new bool[num];
+
     }
 
     public void Create()
@@ -30,13 +39,15 @@ public class Create_Slime : MonoBehaviour
             obj.tag = "Orignal";
             _slime.orignal_s++;
             obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[0];
-            Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
+            PointCreate();
+            //Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
         }
-        
+
+        #region create
         /*
         int rannum = Random.Range(0, 100);
 
-        if(rannum <= 40)
+        if (rannum <= 40)
         {
             //기본슬라임
             Instantiate(obj[0], new Vector3(-4.5f, 0, 0), Quaternion.identity);
@@ -61,11 +72,11 @@ public class Create_Slime : MonoBehaviour
                 //포이든슬라임
                 Instantiate(obj[2], new Vector3(-1.5f, 0, 0), Quaternion.identity);
                 slim.poision_s++;
-            }            
-        } 
+            }
+        }
         else if (rannum > 90 && rannum <= 100)
         {
-            if(rannum > 95)
+            if (rannum > 95)
             {
                 //블러드슬라임
                 Instantiate(obj[5], new Vector3(4.5f, 0, 0), Quaternion.identity);
@@ -76,10 +87,38 @@ public class Create_Slime : MonoBehaviour
                 //클리너슬라임
                 Instantiate(obj[4], new Vector3(3f, 0, 0), Quaternion.identity);
                 slim.cleaner_s++;
-            }   
-        }
+            }
+        }*/
+        #endregion
+    }
 
-        Debug.Log(rannum);
-        */
+    void PointCreate()
+    {
+        int num = Random.Range(0, 3);
+
+        if(isCrtCheck[num] == true)
+        {
+            Instantiate(obj, _Gm.PointList[num], Quaternion.identity);
+            for (int i = 0; i < isCrtCheck.Length; i++)
+            {
+                if(isCrtCheck[i] == false)
+                {
+                    isCrtCheck[i] = true;
+                }
+            }
+            isCrtCheck[num] = false;
+
+        }
+        else
+        {
+            foreach(var n in isCrtCheck)
+            {
+                if(n == true)
+                {
+                    List<bool> test = new List<bool>();
+                    test.Add(n);
+                }
+            }
+        }
     }
 }

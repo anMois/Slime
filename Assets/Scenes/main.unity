@@ -1014,6 +1014,7 @@ MonoBehaviour:
     poision_s: 0
     cleaner_s: 0
     blood_s: 0
+  isCrtCheck: 
 --- !u!1 &373387262
 GameObject:
   m_ObjectHideFlags: 0
