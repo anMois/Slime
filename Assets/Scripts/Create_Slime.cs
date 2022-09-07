@@ -96,27 +96,32 @@ public class Create_Slime : MonoBehaviour
     {
         int num = Random.Range(0, 3);
 
-        if(isCrtCheck[num] == true)
+        if(isCrtCheck[num] == false)
         {
             Instantiate(obj, _Gm.PointList[num], Quaternion.identity);
             for (int i = 0; i < isCrtCheck.Length; i++)
             {
-                if(isCrtCheck[i] == false)
+                if(isCrtCheck[i] == true)
                 {
-                    isCrtCheck[i] = true;
+                    isCrtCheck[i] = false;
                 }
             }
-            isCrtCheck[num] = false;
+            isCrtCheck[num] = true;
 
         }
         else
         {
-            foreach(var n in isCrtCheck)
+            List<bool> test = new List<bool>();
+
+            foreach (var n in isCrtCheck)
             {
-                if(n == true)
+                if (n == false)
                 {
-                    List<bool> test = new List<bool>();
                     test.Add(n);
+                    if (test.Count == (isCrtCheck.Length - 1))
+                    {
+                        Debug.Log(test.Count);
+                    }
                 }
             }
         }
