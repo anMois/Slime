@@ -40,7 +40,6 @@ public class Create_Slime : MonoBehaviour
             _slime.orignal_s++;
             obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[0];
             PointCreate();
-            //Instantiate(obj, _Gm.PointList[Random.Range(0, 3)], Quaternion.identity);
         }
 
         #region create
@@ -111,16 +110,26 @@ public class Create_Slime : MonoBehaviour
         }
         else
         {
-            List<bool> test = new List<bool>();
+            List<int> CrtSlIndex = new List<int>();
 
-            foreach (var n in isCrtCheck)
+            for (int i = 0; i < isCrtCheck.Length; i++)
             {
-                if (n == false)
+                if (isCrtCheck[i] == false)
                 {
-                    test.Add(n);
-                    if (test.Count == (isCrtCheck.Length - 1))
+                    CrtSlIndex.Add(i);
+                    if (CrtSlIndex.Count == (isCrtCheck.Length - 1))
                     {
-                        Debug.Log(test.Count);
+                        int[] CrtSlArr = CrtSlIndex.ToArray();
+                        int n = Random.Range(0, CrtSlIndex.Count);
+                        Instantiate(obj, _Gm.PointList[CrtSlArr[n]], Quaternion.identity);
+                        for (int j = 0; j < isCrtCheck.Length; j++)
+                        {
+                            if (isCrtCheck[j] == true)
+                            {
+                                isCrtCheck[j] = false;
+                            }
+                        }
+                        isCrtCheck[CrtSlArr[n]] = true;
                     }
                 }
             }
