@@ -91,7 +91,7 @@ public class SlimeChangeImg : MonoBehaviour
             slimeimg.sprite = _gm.SlimeSpriteList[page];
             slimeimg.SetNativeSize();
             slimename.text = _gm.SlimeNameList[page];
-            slimegold.text = String.Format("{0:n0}", _gm.SlimeGoldList[page]);
+            slimegold.text = String.Format("{0:n0}", _gm.SlimeCreateGoldList[page]);
         }
     }
 

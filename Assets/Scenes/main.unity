@@ -479,14 +479,13 @@ GameObject:
   - component: {fileID: 225342395}
   - component: {fileID: 225342394}
   - component: {fileID: 225342393}
-  - component: {fileID: 225342396}
   m_Layer: 5
   m_Name: Slime Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &225342392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -567,20 +566,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225342391}
   m_CullTransparentMesh: 0
---- !u!114 &225342396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225342391}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e548783c86858b4a80c312b7da50c76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnlockList: 000000000000
-  page: 0
 --- !u!1 &245443799
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +864,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 225342396}
+      - m_Target: {fileID: 0}
         m_MethodName: UnlockBtn
         m_Mode: 1
         m_Arguments:
@@ -1175,7 +1160,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 225342396}
+      - m_Target: {fileID: 0}
         m_MethodName: PageUp
         m_Mode: 1
         m_Arguments:
@@ -1371,8 +1356,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 370021977}
-        m_MethodName: Create
+      - m_Target: {fileID: 1335412281}
+        m_MethodName: ShowPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2245,7 +2230,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 225342396}
+      - m_Target: {fileID: 0}
         m_MethodName: PageDown
         m_Mode: 1
         m_Arguments:
@@ -2940,7 +2925,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 811953486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 370021977}
+        m_MethodName: Create
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &811953486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4157,8 +4153,8 @@ MonoBehaviour:
   MaxSlime: 0
   isLive: 0
   isClick: 0
-  showsp: {fileID: 21300000, guid: 0cc98cf945627544e8761d70cbbbb24a, type: 3}
-  hidesp: {fileID: 21300000, guid: 1edfcc716ab5b4940a23aa75e0352142, type: 3}
+  showsp: {fileID: 21300000, guid: 0c1eab51f0d036042bbae814bba61772, type: 3}
+  hidesp: {fileID: 21300000, guid: 4fbd7c08103668049829fe146a34e210, type: 3}
 --- !u!1 &1392498457
 GameObject:
   m_ObjectHideFlags: 0
@@ -4465,7 +4461,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1418829963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 370021977}
+        m_MethodName: Create
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1418829963
 MonoBehaviour:
   m_ObjectHideFlags: 0

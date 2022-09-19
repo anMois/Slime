@@ -12,6 +12,8 @@ public class Create_Slime : MonoBehaviour
 
     public bool[] isCrtCheck;
 
+    int page;
+
     UIManager _uiManager;
     GameManager _Gm;
 
@@ -19,6 +21,7 @@ public class Create_Slime : MonoBehaviour
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _Gm = GetComponent<GameManager>();
+        page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
     }
 
     private void Start()
@@ -34,12 +37,17 @@ public class Create_Slime : MonoBehaviour
         {
             _uiManager.ShowError("슬라임 과부화 상태!");
         }
+        else if(_uiManager.Gold < _Gm.SlimeCreateGoldList[0])
+        {
+            _uiManager.ShowError("해당 골드 부족!");
+        }
         else
         {
-            obj.tag = "Orignal";
-            _slime.orignal_s++;
-            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[0];
+            //obj.tag = "Orignal";
+            //_slime.orignal_s++;
+            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
             PointCreate();
+            _uiManager.Gold -= _Gm.SlimeCreateGoldList[page];
         }
 
         #region create
