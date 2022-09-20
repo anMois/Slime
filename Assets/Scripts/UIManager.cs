@@ -26,7 +26,9 @@ public class UIManager : MonoBehaviour
     public Sprite hidesp;
 
     Image slime_Img;
-    Animator _ani;
+    Image plant_Img;
+    Animator _ani_Plant;
+    Animator _ani_Scrt;
     #endregion
 
     #region GameObject
@@ -43,11 +45,13 @@ public class UIManager : MonoBehaviour
         error_Text = GameObject.Find("Canvas").transform.Find("Error Panel/Text").GetComponent<Text>();
 
         slime_Img = GameObject.Find("LeftBtn/Slime Button").GetComponent<Image>();
+        plant_Img = GameObject.Find("LeftBtn/Plant Button").GetComponent<Image>();
 
         option_Panel = GameObject.Find("Canvas").transform.Find("Option Panel").gameObject;
         error_Panel = GameObject.Find("Canvas").transform.Find("Error Panel").gameObject;
 
-        _ani = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
+        _ani_Plant = GameObject.Find("Slime Panel").GetComponent<Animator>();
+        _ani_Scrt = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
 
@@ -92,14 +96,14 @@ public class UIManager : MonoBehaviour
     {
         if (isClick)
         {
-            _ani.SetTrigger("doHide");
+            _ani_Plant.SetTrigger("doHide");
             slime_Img.sprite = hidesp;
             isClick = false;
             isLive = true;
         }
         else
         {
-            _ani.SetTrigger("doShow");
+            _ani_Plant.SetTrigger("doShow");
             slime_Img.sprite = showsp;
             isClick = true;
             isLive = false;
@@ -128,7 +132,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    _ani.SetTrigger("doHide");
+                    _ani_Plant.SetTrigger("doHide");
                     slime_Img.sprite = hidesp;
                     isClick = false;
                     isLive = true;

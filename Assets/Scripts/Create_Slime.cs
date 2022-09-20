@@ -37,7 +37,7 @@ public class Create_Slime : MonoBehaviour
         {
             _uiManager.ShowError("슬라임 과부화 상태!");
         }
-        else if(_uiManager.Gold < _Gm.SlimeCreateGoldList[0])
+        else if(_uiManager.Gold < _Gm.SlimeCreateGoldList[page])
         {
             _uiManager.ShowError("해당 골드 부족!");
         }
