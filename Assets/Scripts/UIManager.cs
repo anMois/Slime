@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         option_Panel = GameObject.Find("Canvas").transform.Find("Option Panel").gameObject;
         error_Panel = GameObject.Find("Canvas").transform.Find("Error Panel").gameObject;
 
-        _ani_Plant = GameObject.Find("Slime Panel").GetComponent<Animator>();
+        //_ani_Plant = GameObject.Find("Slime Panel").GetComponent<Animator>();
         _ani_Scrt = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
@@ -96,14 +96,14 @@ public class UIManager : MonoBehaviour
     {
         if (isClick)
         {
-            _ani_Plant.SetTrigger("doHide");
+            _ani_Scrt.SetTrigger("doHide");
             slime_Img.sprite = hidesp;
             isClick = false;
             isLive = true;
         }
         else
         {
-            _ani_Plant.SetTrigger("doShow");
+            _ani_Scrt.SetTrigger("doShow");
             slime_Img.sprite = showsp;
             isClick = true;
             isLive = false;
@@ -132,7 +132,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    _ani_Plant.SetTrigger("doHide");
+                    _ani_Scrt.SetTrigger("doHide");
                     slime_Img.sprite = hidesp;
                     isClick = false;
                     isLive = true;

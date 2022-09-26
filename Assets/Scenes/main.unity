@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e548783c86858b4a80c312b7da50c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnlockList: 
+  UnlockList: 000000000000
   page: 0
 --- !u!1 &245443799
 GameObject:
@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 225342396}
         m_MethodName: PageUp
         m_Mode: 1
         m_Arguments:
@@ -2245,7 +2245,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 225342396}
         m_MethodName: PageDown
         m_Mode: 1
         m_Arguments:
