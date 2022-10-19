@@ -11,13 +11,13 @@ public class SlimeChangeImg : MonoBehaviour
     public int page;
 
     #region ui
-    Image slimeimg;
-    Image locksimg;
+    public Image slimeimg;
+    public Image locksimg;
     Image conditionimg;
 
-    Text slimename;
+    public Text slimename;
     Text slimegold;
-    Text pagetext;
+    public Text pagetext;
     Text conditiontext;
     #endregion
 
