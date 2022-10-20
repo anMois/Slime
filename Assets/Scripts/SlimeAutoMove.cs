@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SlimeAutoMove : MonoBehaviour
 {
-    public float idle_Num;
     public float num;
     float speedX;
     float speedY;
     float walk_Num;
+    float idle_Num;
 
     bool iswalk = false;
+    bool isidle = false;
 
     public GameObject TopLeft;
     public GameObject BottomRight;
@@ -22,7 +23,7 @@ public class SlimeAutoMove : MonoBehaviour
 
     Animator ani;
     SpriteRenderer slime_sprite;
-    
+
     private void Awake()
     {
         TopLeft = GameObject.Find("Border Group/TopLeft");
@@ -43,67 +44,33 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void Update()
     {
-        //idle 상태
-        if (!iswalk)
-        {
-            idle_Num -= Time.deltaTime;
-            if (idle_Num < 0.0f)
-            {
-                isWalkCheck();
-            }    
 
-        }
-        //walk 상태
-        else
-        {
-            transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedY * Time.deltaTime);
-            if (SelfPositionCheck())
-            {
-                transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedY * Time.deltaTime);
-            }
-            walk_Num -= Time.deltaTime;
-            if (walk_Num < 0.0f)
-            {
-                isWalkCheck();
-            }
-        }
     }
 
     private void FixedUpdate()
     {
+        if (!isidle)
+            StartCoroutine(IdleCheck()); //코루틴사용
+        if (iswalk)
+            SlimeMove();
+    }
+
+    void OnMouseDown()
+    {
+        ani.SetBool("isWalk", false);
+        iswalk = false;
         
-    }
-
-    void isWalkCheck()
-    {
-        //idle 전환
-        if (ani.GetBool("isWalk"))
-        {
-            ani.SetBool("isWalk", false);
-            idle_Num = Random.Range(3.0f, 5.0f);
-            iswalk = false;
-        }
-        //walk 전환
-        else
-        {
-            walk_Num = 2.5f;
-            ani.SetBool("isWalk", true);
-            speedX = Random.Range(-0.8f, 0.8f);
-            speedY = Random.Range(-0.8f, 0.8f);
-
-            if (speedX < 0)
-                slime_sprite.flipX = true;
-            else
-                slime_sprite.flipX = false;
-
-            iswalk = true;
-        }
-    }
-
-    void isTouch()
-    {
         Debug.Log("Click");
         ani.SetTrigger("doTouch");
+    } 
+
+    void SlimeMove()
+    {
+        transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedY * Time.deltaTime);
+        if (SelfPositionCheck())
+        {
+            transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedY * Time.deltaTime);
+        }
     }
 
     #region 벽에 부디쳤을때 자기위치 확인
@@ -120,10 +87,7 @@ public class SlimeAutoMove : MonoBehaviour
             speedX = v.x;
             speedY = v.y;
 
-            if (speedX < 0)
-                slime_sprite.flipX = true;
-            else
-                slime_sprite.flipX = false;
+            slime_sprite.flipX = (speedX < 0) ? true : false;
 
             return true;
         }
@@ -131,4 +95,28 @@ public class SlimeAutoMove : MonoBehaviour
             return false;
     }
     #endregion
+
+    IEnumerator IdleCheck()
+    {
+        speedX = Random.Range(-0.8f, 0.8f);
+        speedY = Random.Range(-0.8f, 0.8f);
+
+        isidle = true;
+
+        yield return new WaitForSeconds(idle_Num); //기본상태에서 움직이는 상태로
+
+        walk_Num = 2.5f;
+        ani.SetBool("isWalk", true);
+        slime_sprite.flipX = (speedX < 0) ? true : false;
+
+        iswalk = true;
+
+        yield return new WaitForSeconds(walk_Num); //움직이는 상태에서 기본상태로
+
+        ani.SetBool("isWalk", false);
+        idle_Num = Random.Range(3.0f, 5.0f);
+        iswalk = false;
+
+        isidle = false;
+    }
 }
