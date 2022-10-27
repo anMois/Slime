@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public RuntimeAnimatorController[] LevelAc;
 
-    public void Change(Animator anim, int level)
+    public void ChangeAc(Animator anim, int level)
     {
         anim.runtimeAnimatorController = LevelAc[level - 1];
     }

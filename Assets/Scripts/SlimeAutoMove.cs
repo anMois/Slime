@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class SlimeAutoMove : MonoBehaviour
 {
-    public float num;
-    float speedX;
-    float speedY;
-    float walk_Num;
-    float idle_Num;
+    public int id;      //슬라임 이미지순서
+    public int level;   //레벨 => 애니메이션 컨트롤러
+
+    float speedX;   //움질일떄 x값
+    float speedY;   //움질일떄 y값
+    float walk_Num; //움직이는 시간
+    float idle_Num; //기본상태에서 대기하는시간
 
     bool iswalk = false;
     bool isidle = false;
 
     public GameObject TopLeft;
     public GameObject BottomRight;
-    public GameObject Manager;
+    public GameObject Gm;
+    public UIManager Uim;
 
     Transform tl; //topleft 위치
     Transform br; //bottomright 위치
@@ -28,7 +31,8 @@ public class SlimeAutoMove : MonoBehaviour
     {
         TopLeft = GameObject.Find("Border Group/TopLeft");
         BottomRight = GameObject.Find("Border Group/BottomRight");
-        Manager = GameObject.Find("GameManager");
+        Gm = GameObject.Find("GameManager");
+        Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         ani = transform.GetComponent<Animator>();
         slime_sprite = transform.GetComponent<SpriteRenderer>();
@@ -40,11 +44,14 @@ public class SlimeAutoMove : MonoBehaviour
     private void Start()
     {
         idle_Num = Random.Range(3.0f, 5.0f);
+
+        if (ani.runtimeAnimatorController != Gm.GetComponent<GameManager>().LevelAc[0])
+            ani.runtimeAnimatorController = Gm.GetComponent<GameManager>().LevelAc[0];
     }
 
     private void Update()
     {
-
+        
     }
 
     private void FixedUpdate()
@@ -60,9 +67,11 @@ public class SlimeAutoMove : MonoBehaviour
         ani.SetBool("isWalk", false);
         iswalk = false;
         
-        Debug.Log("Click");
+        if (Uim.Jelatine < 9999999)
+            Uim.Jelatine += (id + 1) * level;
+
         ani.SetTrigger("doTouch");
-    } 
+    }
 
     void SlimeMove()
     {
@@ -80,7 +89,7 @@ public class SlimeAutoMove : MonoBehaviour
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))
         {
             int n = Random.Range(0, 3); //지정된 위치 정하기
-            point = Manager.GetComponent<GameManager>().PointList[n];
+            point = Gm.GetComponent<GameManager>().PointList[n];
             Vector3 v = point - transform.position;
             v.Normalize();
             v = v * 0.3f;

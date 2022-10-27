@@ -8,10 +8,12 @@ public class UIManager : MonoBehaviour
 {
     #region 기본데이터
     public int Gold;
+    public int Jelatine;
     public int SlimeCount;
     public int MaxSlime;
 
-    int value;
+    int G_value;
+    int J_value;
 
     public bool isLive;
     public bool isClick;
@@ -19,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     #region ui
     Text gold_Text;
+    public Text jelatine_Text;
     Text slimecount_Text;
     Text error_Text;
 
@@ -41,6 +44,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         gold_Text = GameObject.Find("Gold/Text").GetComponent<Text>();
+        jelatine_Text = GameObject.Find("Jelatine/Text").GetComponent<Text>();
         slimecount_Text = GameObject.Find("SlimeCount/Text").GetComponent<Text>();
         error_Text = GameObject.Find("Canvas").transform.Find("Error Panel/Text").GetComponent<Text>();
 
@@ -70,14 +74,19 @@ public class UIManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        float num = Mathf.SmoothStep(value, Gold, 0.5f);
+        float gold_num = Mathf.SmoothStep(G_value, Gold, 0.5f);
+        float jelatine_num = Mathf.SmoothStep(J_value, Jelatine, 0.5f);
         
-        gold_Text.text = String.Format("{0:n0}", num);
-        value = (int)num;
+        gold_Text.text = String.Format("{0:n0}", gold_num);
+        jelatine_Text.text = String.Format("{0:n0}", jelatine_num);
+
+        G_value = (int)gold_num;
+        J_value = (int)jelatine_num;
 
         SlimeCount = _slime.orignal_s + _slime.poision_s + _slime.sticky_s + _slime.blood_s + _slime.acid_s;
         slimecount_Text.text = String.Format("{0} / {1}", SlimeCount, MaxSlime);
     }
+
 
     public void MaxSlimeAdd()
     {
