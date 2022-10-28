@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour
 
     public bool isLive;
     public bool isClick;
+
+    bool isSlimeCheck;
+    bool isPlantCheck;
+    bool isOption;
     #endregion
 
     #region ui
@@ -25,13 +29,15 @@ public class UIManager : MonoBehaviour
     Text slimecount_Text;
     Text error_Text;
 
-    public Sprite showsp;
-    public Sprite hidesp;
+    public Sprite slime_showSp;
+    public Sprite slime_hideSp;
+    public Sprite plant_showSp;
+    public Sprite plant_hideSp;
 
     Image slime_Img;
     Image plant_Img;
     Animator _ani_Plant;
-    Animator _ani_Scrt;
+    Animator _ani_Slime;
     #endregion
 
     #region GameObject
@@ -54,8 +60,8 @@ public class UIManager : MonoBehaviour
         option_Panel = GameObject.Find("Canvas").transform.Find("Option Panel").gameObject;
         error_Panel = GameObject.Find("Canvas").transform.Find("Error Panel").gameObject;
 
-        //_ani_Plant = GameObject.Find("Slime Panel").GetComponent<Animator>();
-        _ani_Scrt = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
+        _ani_Plant = GameObject.Find("Plant Panel").GetComponent<Animator>();
+        _ani_Slime = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
 
@@ -69,7 +75,12 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        OptionCheck();
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (isSlimeCheck) SlimeShowPanel();
+            else if (isPlantCheck) PlantShowPanel();
+            else OptionShowPanel();
+        }
     }
 
     private void LateUpdate()
@@ -101,53 +112,63 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowPanel()
+    public void SlimeShowPanel()
     {
-        if (isClick)
+        if (isPlantCheck)
         {
-            _ani_Scrt.SetTrigger("doHide");
-            slime_Img.sprite = hidesp;
-            isClick = false;
+            _ani_Plant.SetTrigger("doHide");
+            plant_Img.sprite = plant_hideSp;
+            isPlantCheck = false;
             isLive = true;
+        }
+
+        if(isSlimeCheck)
+        {
+            _ani_Slime.SetTrigger("doHide");
+            slime_Img.sprite = slime_hideSp;
         }
         else
         {
-            _ani_Scrt.SetTrigger("doShow");
-            slime_Img.sprite = showsp;
-            isClick = true;
-            isLive = false;
+            _ani_Slime.SetTrigger("doShow");
+            slime_Img.sprite = slime_showSp;
         }
+
+        isSlimeCheck = !isSlimeCheck;
+        isLive = !isLive;
     }
 
-    public void OptionCheck()
+    public void PlantShowPanel()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (isSlimeCheck)
         {
-            if (isLive)
-            {
-                option_Panel.SetActive(true);
-                Time.timeScale = 0;
-                isClick = true;
-                isLive = false;
-            }
-            else
-            {
-                if(option_Panel.activeSelf == true)
-                {
-                    option_Panel.SetActive(false);
-                    Time.timeScale = 1;
-                    isClick = false;
-                    isLive = true;
-                }
-                else
-                {
-                    _ani_Scrt.SetTrigger("doHide");
-                    slime_Img.sprite = hidesp;
-                    isClick = false;
-                    isLive = true;
-                }
-            }
+            _ani_Slime.SetTrigger("doHide");
+            slime_Img.sprite = plant_hideSp;
+            isSlimeCheck = false;
+            isLive = true;
         }
+
+        if (isPlantCheck)
+        {
+            _ani_Plant.SetTrigger("doHide");
+            plant_Img.sprite = plant_hideSp;
+        }
+        else
+        {
+            _ani_Plant.SetTrigger("doShow");
+            plant_Img.sprite = plant_showSp;
+        }
+
+        isPlantCheck = !isPlantCheck;
+        isLive = !isLive;
+    }
+
+    public void OptionShowPanel()
+    {
+        isOption = !isOption;
+        isLive = !isLive;
+
+        option_Panel.SetActive(isOption);
+        Time.timeScale = isOption == true ? 0 : 1;
     }
 
     public void ShowError(String msg)
