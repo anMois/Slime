@@ -11,19 +11,19 @@ public class SlimeChangeImg : MonoBehaviour
     public int page;
 
     #region ui
-    public Image slimeimg;
-    public Image locksimg;
-    Image conditionimg;
+    public Image slimeimg;  //슬라임 이미지
+    public Image locksimg;  //잠겨있는 슬라임 이미지
 
-    public Text slimename;
-    Text slimegold;
-    public Text pagetext;
-    Text conditiontext;
+    public Text slimename;  //슬라임 이름
+    Text slimegold;         //슬라임 구매 골드
+    public Text pagetext;   //해당 페이지
+    Text conditiontext;     //슬라임 잠금 조건 텍스트
     #endregion
 
     GameObject lockobj;
 
     GameManager _gm;
+    UIManager _ui;
     Slime _slime;
 
     private void Awake()
@@ -35,11 +35,12 @@ public class SlimeChangeImg : MonoBehaviour
 
         lockobj = GameObject.Find("Lock Group").transform.Find("Lock Group").gameObject;
         locksimg = GameObject.Find("Lock Group").transform.Find("Lock Group/Image").GetComponent<Image>();
-        conditionimg = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Image").GetComponent<Image>();
+        
         conditiontext = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Text").GetComponent<Text>();
 
         _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     private void Start()
@@ -49,31 +50,25 @@ public class SlimeChangeImg : MonoBehaviour
 
     private void FixedUpdate()
     {
-        conditiontext.text = String.Format("{0:00} / 20", SlimeCount(page));
+        
     }
 
     public void PageUp()
     {
-        if (page == 5)
-            return;
-        else
-        {
-            page += 1;
-            SlimeChage();
-            pagetext.text = String.Format("#{0:00}", page + 1);
-        }
+        if (page == 5)  return;
+
+        page += 1;
+        SlimeChage();
+        pagetext.text = String.Format("#{0:00}", page + 1);
     }
 
     public void PageDown()
     {
-        if (page == 0)
-            return;
-        else
-        {
-            page -= 1;
-            SlimeChage();
-            pagetext.text = String.Format("#{0:00}", page + 1);
-        }
+        if (page == 0)  return;
+
+        page -= 1;
+        SlimeChage();
+        pagetext.text = String.Format("#{0:00}", page + 1);
     }
 
     public void SlimeChage()
@@ -83,7 +78,7 @@ public class SlimeChangeImg : MonoBehaviour
             lockobj.SetActive(true);
             locksimg.sprite = _gm.SlimeSpriteList[page];
             locksimg.SetNativeSize();
-            conditionimg.sprite = _gm.SlimeSpriteList[page];
+            conditiontext.text = String.Format("{0:n0}", _gm.JelatineList[page]);
         }
         else
         {
@@ -118,11 +113,15 @@ public class SlimeChangeImg : MonoBehaviour
 
     public void UnlockBtn()
     {
-        if (SlimeCount(page) == 20)
+        if (_ui.Jelatine < _gm.JelatineList[page])
         {
-            UnlockList[page] = true;
-            lockobj.SetActive(false);
-            SlimeChage();
+            _ui.ErrorPanel("해당 젤라틴 부족!");
+            return;
         }
+
+        UnlockList[page] = true;
+        SlimeChage();
+
+        _ui.Jelatine -= _gm.JelatineList[page];
     }
 }

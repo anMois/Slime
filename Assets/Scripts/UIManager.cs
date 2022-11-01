@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     bool isSlimeCheck;
     bool isPlantCheck;
     bool isOption;
+    bool isError;
     #endregion
 
     #region ui
@@ -103,13 +104,12 @@ public class UIManager : MonoBehaviour
     {
         if (Gold < 500)
         {
-            ShowError("골드가 부족해요...");
+            ErrorPanel("골드가 부족해요...");
+            return;
         } 
-        else
-        {
-            Gold -= 500;
-            MaxSlime += 5;
-        }
+
+        Gold -= 500;
+        MaxSlime += 5;
     }
 
     public void SlimeShowPanel()
@@ -171,19 +171,13 @@ public class UIManager : MonoBehaviour
         Time.timeScale = isOption == true ? 0 : 1;
     }
 
-    public void ShowError(String msg)
+    public void ErrorPanel(String msg)
     {
-        error_Panel.SetActive(true);
-        error_Text.text = msg;
-        isClick = true;
-        isLive = false;
-    }
+        isError = !isError;
+        isLive = !isLive;
 
-    public void HideError()
-    {
-        error_Panel.SetActive(false);
-        isClick = false;
-        isLive = true;
+        error_Panel.SetActive(isError);
+        error_Text.text = msg;
     }
 
     public void AddGold()

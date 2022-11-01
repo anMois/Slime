@@ -35,20 +35,20 @@ public class Create_Slime : MonoBehaviour
     {
         if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
         {
-            _uiManager.ShowError("슬라임 과부화 상태!");
+            _uiManager.ErrorPanel("슬라임 과부화 상태!");
+            return;
         }
         else if(_uiManager.Gold < _Gm.SlimeCreateGoldList[page])
         {
-            _uiManager.ShowError("해당 골드 부족!");
+            _uiManager.ErrorPanel("해당 골드 부족!");
+            return;
         }
-        else
-        {
-            //obj.tag = "Orignal";
-            //_slime.orignal_s++;
-            obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
-            PointCreate();
-            _uiManager.Gold -= _Gm.SlimeCreateGoldList[page];
-        }
+
+        //obj.tag = "Orignal";
+        //_slime.orignal_s++;
+        obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
+        PointCreate();
+        _uiManager.Gold -= _Gm.SlimeCreateGoldList[page];
 
         #region create
         /*

@@ -551,7 +551,7 @@ MonoBehaviour:
   - "\uD074\uB9AC\uB108"
   - "\uBE14\uB7EC\uB4DC"
   SlimeCreateGoldList: 140000005a000000a40100008c0a0000d81d000088450000
-  SlimeGoldList: f40100004c040000800c00001815000024220000cc5b0000
+  JelatineList: c8000000f4010000d007000088130000204e000050c30000
   PointList:
   - {x: -3, y: -1, z: -1}
   - {x: 0, y: 0, z: 0}
@@ -649,7 +649,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: ?? / 20
+  m_Text: 999,999
 --- !u!222 &373387265
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1346,8 +1346,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335412281}
-        m_MethodName: HideError
-        m_Mode: 1
+        m_MethodName: ErrorPanel
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3912,8 +3912,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 3, y: -1}
-  m_SizeDelta: {x: 8, y: 8}
+  m_AnchoredPosition: {x: 3, y: -2}
+  m_SizeDelta: {x: 6.4, y: 6.4}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1669428793
 MonoBehaviour:
@@ -3934,7 +3934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4ba7a5e8b25ae241a6c94d4d6df858d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: feabaf7052f4d8e4daf77e40668bc2b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
