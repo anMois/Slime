@@ -20,24 +20,12 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        if(slimes_count._slime.cleaner_s >= 2)
-        {
-            shCoin_num += Time.deltaTime;
 
-            if (shCoin_num > 10.0f)
-            {
-                Coin_image.SetActive(true);
-            }
-        }
-        
     }
 
     public void CheckSlime()
     {
-        if (slimes_count._slime.cleaner_s >= 2)
-            gameObject.transform.GetChild(1).gameObject.SetActive(false);
-        else
-            Debug.Log("클리너 슬라임이 부족합니다.");
+        
     }
 
     public void AddCoin()

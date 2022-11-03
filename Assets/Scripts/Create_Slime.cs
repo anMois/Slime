@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class Create_Slime : MonoBehaviour
 {
     public GameObject obj;
-    //public GameObject[] obj;
-    public Slime _slime;
 
     public bool[] isCrtCheck;
 
@@ -21,14 +19,12 @@ public class Create_Slime : MonoBehaviour
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _Gm = GetComponent<GameManager>();
-        page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
     }
 
     private void Start()
     {
         int num = _Gm.PointList.Length;
         isCrtCheck = new bool[num];
-
     }
 
     public void Create()
@@ -38,65 +34,23 @@ public class Create_Slime : MonoBehaviour
             _uiManager.ErrorPanel("슬라임 과부화 상태!");
             return;
         }
-        else if(_uiManager.Gold < _Gm.SlimeCreateGoldList[page])
+        else if ((_uiManager.Gold < _Gm.SlimeCreateGoldList[page]) &&
+            (_uiManager.Gold - _Gm.SlimeCreateGoldList[page] < 0))
         {
             _uiManager.ErrorPanel("해당 골드 부족!");
             return;
         }
 
-        //obj.tag = "Orignal";
-        //_slime.orignal_s++;
-        obj.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
+        page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
+
+        SlimeAutoMove _slm = obj.GetComponent<SlimeAutoMove>();
+        obj.name = "Slime" + page;
+        _slm.id = page;
+        _slm.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
+
         PointCreate();
         _uiManager.Gold -= _Gm.SlimeCreateGoldList[page];
-
-        #region create
-        /*
-        int rannum = Random.Range(0, 100);
-
-        if (rannum <= 40)
-        {
-            //기본슬라임
-            Instantiate(obj[0], new Vector3(-4.5f, 0, 0), Quaternion.identity);
-            slim.orignal_s++;
-        }
-        else if (rannum > 40 && rannum <= 60)
-        {
-            //스티키슬라임
-            Instantiate(obj[1], new Vector3(-3f, 0, 0), Quaternion.identity);
-            slim.sticky_s++;
-        }
-        else if (rannum > 40 && rannum <= 90)
-        {
-            if (rannum > 75)
-            {
-                //애시드슬라임
-                Instantiate(obj[3], new Vector3(1.5f, 0, 0), Quaternion.identity);
-                slim.acid_s++;
-            }
-            else
-            {
-                //포이든슬라임
-                Instantiate(obj[2], new Vector3(-1.5f, 0, 0), Quaternion.identity);
-                slim.poision_s++;
-            }
-        }
-        else if (rannum > 90 && rannum <= 100)
-        {
-            if (rannum > 95)
-            {
-                //블러드슬라임
-                Instantiate(obj[5], new Vector3(4.5f, 0, 0), Quaternion.identity);
-                slim.blood_s++;
-            }
-            else
-            {
-                //클리너슬라임
-                Instantiate(obj[4], new Vector3(3f, 0, 0), Quaternion.identity);
-                slim.cleaner_s++;
-            }
-        }*/
-        #endregion
+        _uiManager.SlimeCount++;
     }
 
     void PointCreate()

@@ -24,7 +24,6 @@ public class SlimeChangeImg : MonoBehaviour
 
     GameManager _gm;
     UIManager _ui;
-    Slime _slime;
 
     private void Awake()
     {
@@ -38,7 +37,6 @@ public class SlimeChangeImg : MonoBehaviour
         
         conditiontext = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Text").GetComponent<Text>();
 
-        _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
@@ -48,16 +46,11 @@ public class SlimeChangeImg : MonoBehaviour
         SlimeChage();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
     public void PageUp()
     {
         if (page == 5)  return;
 
-        page += 1;
+        ++page;
         SlimeChage();
         pagetext.text = String.Format("#{0:00}", page + 1);
     }
@@ -66,7 +59,7 @@ public class SlimeChangeImg : MonoBehaviour
     {
         if (page == 0)  return;
 
-        page -= 1;
+        --page;
         SlimeChage();
         pagetext.text = String.Format("#{0:00}", page + 1);
     }
@@ -87,27 +80,6 @@ public class SlimeChangeImg : MonoBehaviour
             slimeimg.SetNativeSize();
             slimename.text = _gm.SlimeNameList[page];
             slimegold.text = String.Format("{0:n0}", _gm.SlimeCreateGoldList[page]);
-        }
-    }
-
-    int SlimeCount(int num)
-    {
-        switch (num)
-        {
-            case 0:
-                return _slime.orignal_s;
-            case 1:
-                return _slime.sticky_s;
-            case 2:
-                return _slime.acid_s;
-            case 3:
-                return _slime.poision_s;
-            case 4:
-                return _slime.blood_s;
-            case 5:
-                return _slime.cleaner_s;
-            default:
-                return 0;
         }
     }
 

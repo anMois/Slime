@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2250735959487488438}
   m_Layer: 0
   m_Name: Jelly 0
-  m_TagString: Orignal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,11 +197,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aaf9718adc136a4e80cf207bb07f264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle_Num: 0
-  num: 0
+  id: 0
+  level: 1
   TopLeft: {fileID: 0}
   BottomRight: {fileID: 0}
-  Manager: {fileID: 0}
+  Gm: {fileID: 0}
+  Uim: {fileID: 0}
+  slime_sprite: {fileID: 0}
 --- !u!58 &2250735959487488438
 CircleCollider2D:
   m_ObjectHideFlags: 0

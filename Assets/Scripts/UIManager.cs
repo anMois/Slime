@@ -46,8 +46,6 @@ public class UIManager : MonoBehaviour
     GameObject error_Panel;
     #endregion
 
-    Slime _slime;
-
     private void Awake()
     {
         gold_Text = GameObject.Find("Gold/Text").GetComponent<Text>();
@@ -63,8 +61,6 @@ public class UIManager : MonoBehaviour
 
         _ani_Plant = GameObject.Find("Plant Panel").GetComponent<Animator>();
         _ani_Slime = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
-
-        _slime = GameObject.Find("GameManager").GetComponent<Create_Slime>()._slime;
 
         isLive = true;
     }
@@ -95,10 +91,8 @@ public class UIManager : MonoBehaviour
         G_value = (int)gold_num;
         J_value = (int)jelatine_num;
 
-        SlimeCount = _slime.orignal_s + _slime.poision_s + _slime.sticky_s + _slime.blood_s + _slime.acid_s;
         slimecount_Text.text = String.Format("{0} / {1}", SlimeCount, MaxSlime);
     }
-
 
     public void MaxSlimeAdd()
     {

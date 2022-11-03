@@ -11,6 +11,7 @@ public class SlimeAutoMove : MonoBehaviour
     float speedY;   //움질일떄 y값
     float walk_Num; //움직이는 시간
     float idle_Num; //기본상태에서 대기하는시간
+    float pick_time;//마우스 버튼을 누른시간
 
     bool iswalk = false;
     bool isidle = false;
@@ -25,7 +26,7 @@ public class SlimeAutoMove : MonoBehaviour
     Vector3 point; //돌아갈 위치
 
     Animator ani;
-    SpriteRenderer slime_sprite;
+    public SpriteRenderer slime_sprite;
 
     private void Awake()
     {
@@ -34,8 +35,8 @@ public class SlimeAutoMove : MonoBehaviour
         Gm = GameObject.Find("GameManager");
         Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
 
-        ani = transform.GetComponent<Animator>();
-        slime_sprite = transform.GetComponent<SpriteRenderer>();
+        ani = GetComponent<Animator>();
+        slime_sprite = GetComponent<SpriteRenderer>();
 
         tl = TopLeft.transform;
         br = BottomRight.transform;
@@ -49,11 +50,6 @@ public class SlimeAutoMove : MonoBehaviour
             ani.runtimeAnimatorController = Gm.GetComponent<GameManager>().LevelAc[0];
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         if (!isidle)
@@ -64,13 +60,46 @@ public class SlimeAutoMove : MonoBehaviour
 
     void OnMouseDown()
     {
-        ani.SetBool("isWalk", false);
+        if (!Uim.isLive) return;
+
         iswalk = false;
-        
+        ani.SetBool("isWalk", false);
+        ani.SetTrigger("doTouch");
+
         if (Uim.Jelatine < 9999999)
             Uim.Jelatine += (id + 1) * level;
+    }
 
+    private void OnMouseDrag()
+    {
+        if (!Uim.isLive) return;
+
+        pick_time += Time.deltaTime;
+
+        if (pick_time < 0.5f) return;
+
+        iswalk = false;
+        ani.SetBool("doWalk", false);
         ani.SetTrigger("doTouch");
+
+        Vector3 mouse_pos = Input.mousePosition;
+        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(mouse_pos.x, mouse_pos.y, mouse_pos.y));
+
+        transform.position = point;
+    }
+
+    private void OnMouseUp()
+    {
+        if (!Uim.isLive) return;
+
+        pick_time = 0;
+
+        if ((transform.position.x < tl.position.x || transform.position.x > br.position.x) ||
+            (transform.position.y > tl.position.y || transform.position.y < br.position.y))
+        {
+            int n = Random.Range(0, 3);
+            transform.position = Gm.GetComponent<GameManager>().PointList[n];
+        }
     }
 
     void SlimeMove()
