@@ -490,7 +490,7 @@ Transform:
   - {fileID: 2126355488}
   - {fileID: 245443800}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &370021974
 GameObject:
@@ -536,6 +536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a0528d1f5898b478b020fb56cf258f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 0
+  jelatin: 0
+  slime_list: []
+  slime_data_list: []
+  slime_unlock_list: 
   SlimeSpriteList:
   - {fileID: 21300000, guid: f4ba7a5e8b25ae241a6c94d4d6df858d, type: 3}
   - {fileID: 21300000, guid: 932ce8ce7b8fd8e4d9fb9bce6a7e0b7d, type: 3}
@@ -715,7 +720,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &403538514
 GameObject:
@@ -2615,7 +2620,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335412281}
-        m_MethodName: AddGold
+        m_MethodName: GoShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3218,7 +3223,7 @@ RectTransform:
   - {fileID: 261784450}
   - {fileID: 1392498458}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3238,16 +3243,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gold: 0
-  Jelatine: 0
+  Jelatine: 1000
   SlimeCount: 0
   MaxSlime: 0
   isLive: 0
   isClick: 0
-  jelatine_Text: {fileID: 0}
   slime_showSp: {fileID: 21300000, guid: 0c1eab51f0d036042bbae814bba61772, type: 3}
   slime_hideSp: {fileID: 21300000, guid: 4fbd7c08103668049829fe146a34e210, type: 3}
   plant_showSp: {fileID: 21300000, guid: 0cc98cf945627544e8761d70cbbbb24a, type: 3}
   plant_hideSp: {fileID: 21300000, guid: 1edfcc716ab5b4940a23aa75e0352142, type: 3}
+  dm: {fileID: 2055077923}
 --- !u!1 &1392498457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,7 +3641,7 @@ Transform:
   - {fileID: 812453842}
   - {fileID: 1815985027}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471104710
 GameObject:
@@ -4568,12 +4573,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e548783c86858b4a80c312b7da50c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnlockList: 010000000000
+  UnlockList: 000000000000
   page: 0
   slimeimg: {fileID: 0}
   locksimg: {fileID: 0}
   slimename: {fileID: 0}
   pagetext: {fileID: 0}
+  lockobj: {fileID: 0}
 --- !u!95 &1928959608
 Animator:
   serializedVersion: 3
@@ -4937,6 +4943,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053471867}
   m_CullTransparentMesh: 0
+--- !u!1 &2055077923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2055077925}
+  - component: {fileID: 2055077924}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2055077924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055077923}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d037ab466d3514fb1208f8812fb3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2055077925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055077923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2085798490
 GameObject:
   m_ObjectHideFlags: 0

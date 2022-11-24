@@ -18,21 +18,21 @@ public class SlimeAutoMove : MonoBehaviour
 
     public GameObject TopLeft;
     public GameObject BottomRight;
-    public GameObject Gm;
+    public GameManager Gm;
     public UIManager Uim;
 
     Transform tl; //topleft 위치
     Transform br; //bottomright 위치
     Vector3 point; //돌아갈 위치
 
-    Animator ani;
+    public Animator ani;
     public SpriteRenderer slime_sprite;
 
     private void Awake()
     {
         TopLeft = GameObject.Find("Border Group/TopLeft");
         BottomRight = GameObject.Find("Border Group/BottomRight");
-        Gm = GameObject.Find("GameManager");
+        Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         ani = GetComponent<Animator>();
@@ -46,8 +46,8 @@ public class SlimeAutoMove : MonoBehaviour
     {
         idle_Num = Random.Range(3.0f, 5.0f);
 
-        if (ani.runtimeAnimatorController != Gm.GetComponent<GameManager>().LevelAc[0])
-            ani.runtimeAnimatorController = Gm.GetComponent<GameManager>().LevelAc[0];
+        if (ani.runtimeAnimatorController != Gm.LevelAc[0])
+            ani.runtimeAnimatorController = Gm.LevelAc[0];
     }
 
     private void FixedUpdate()
@@ -79,7 +79,7 @@ public class SlimeAutoMove : MonoBehaviour
         if (pick_time < 0.5f) return;
 
         iswalk = false;
-        ani.SetBool("doWalk", false);
+        ani.SetBool("isWalk", false);
         ani.SetTrigger("doTouch");
 
         Vector3 mouse_pos = Input.mousePosition;
@@ -98,7 +98,7 @@ public class SlimeAutoMove : MonoBehaviour
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))
         {
             int n = Random.Range(0, 3);
-            transform.position = Gm.GetComponent<GameManager>().PointList[n];
+            transform.position = Gm.PointList[n];
         }
     }
 
@@ -118,7 +118,7 @@ public class SlimeAutoMove : MonoBehaviour
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))
         {
             int n = Random.Range(0, 3); //지정된 위치 정하기
-            point = Gm.GetComponent<GameManager>().PointList[n];
+            point = Gm.PointList[n];
             Vector3 v = point - transform.position;
             v.Normalize();
             v = v * 0.3f;

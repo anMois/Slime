@@ -20,7 +20,7 @@ public class SlimeChangeImg : MonoBehaviour
     Text conditiontext;     //슬라임 잠금 조건 텍스트
     #endregion
 
-    GameObject lockobj;
+    public GameObject lockobj;     //잠겨있는 슬라임 오브젝트
 
     GameManager _gm;
     UIManager _ui;
@@ -39,8 +39,15 @@ public class SlimeChangeImg : MonoBehaviour
 
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
-    }
 
+        for (int i = 0; i < UnlockList.Length; i++)
+        {
+            if (PlayerPrefs.HasKey(i.ToString()))
+                UnlockList[i] = true;
+        }
+        lockobj.SetActive(!UnlockList[page]);
+    }
+    
     private void Start()
     {
         SlimeChage();
@@ -95,5 +102,7 @@ public class SlimeChangeImg : MonoBehaviour
         SlimeChage();
 
         _ui.Jelatine -= _gm.JelatineList[page];
+
+        PlayerPrefs.SetInt(page.ToString(), 1);
     }
 }

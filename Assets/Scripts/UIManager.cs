@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -26,7 +27,7 @@ public class UIManager : MonoBehaviour
 
     #region ui
     Text gold_Text;
-    public Text jelatine_Text;
+    Text jelatine_Text;
     Text slimecount_Text;
     Text error_Text;
 
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
     #region GameObject
     GameObject option_Panel;
     GameObject error_Panel;
+    public GameObject dm;
     #endregion
 
     private void Awake()
@@ -67,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        
         MaxSlime = 10;
     }
 
@@ -136,7 +139,7 @@ public class UIManager : MonoBehaviour
         if (isSlimeCheck)
         {
             _ani_Slime.SetTrigger("doHide");
-            slime_Img.sprite = plant_hideSp;
+            slime_Img.sprite = slime_hideSp;
             isSlimeCheck = false;
             isLive = true;
         }
@@ -174,8 +177,9 @@ public class UIManager : MonoBehaviour
         error_Text.text = msg;
     }
 
-    public void AddGold()
+    public void GoShop()
     {
-        Gold += 500;
+        dm.GetComponent<DataManager>().JsonSave();
+        SceneManager.LoadScene("ShopScene");
     }
 }
