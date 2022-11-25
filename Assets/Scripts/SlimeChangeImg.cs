@@ -22,8 +22,8 @@ public class SlimeChangeImg : MonoBehaviour
 
     public GameObject lockobj;     //잠겨있는 슬라임 오브젝트
 
-    GameManager _gm;
-    UIManager _ui;
+    GameManager _Gm;
+    UIManager _uiM;
 
     private void Awake()
     {
@@ -37,8 +37,8 @@ public class SlimeChangeImg : MonoBehaviour
         
         conditiontext = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Text").GetComponent<Text>();
 
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _ui = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         for (int i = 0; i < UnlockList.Length; i++)
         {
@@ -76,32 +76,32 @@ public class SlimeChangeImg : MonoBehaviour
         if (!UnlockList[page])
         {
             lockobj.SetActive(true);
-            locksimg.sprite = _gm.SlimeSpriteList[page];
+            locksimg.sprite = _Gm.SlimeSpriteList[page];
             locksimg.SetNativeSize();
-            conditiontext.text = String.Format("{0:n0}", _gm.JelatineList[page]);
+            conditiontext.text = String.Format("{0:n0}", _Gm.JelatineList[page]);
         }
         else
         {
             lockobj.SetActive(false);
-            slimeimg.sprite = _gm.SlimeSpriteList[page];
+            slimeimg.sprite = _Gm.SlimeSpriteList[page];
             slimeimg.SetNativeSize();
-            slimename.text = _gm.SlimeNameList[page];
-            slimegold.text = String.Format("{0:n0}", _gm.SlimeCreateGoldList[page]);
+            slimename.text = _Gm.SlimeNameList[page];
+            slimegold.text = String.Format("{0:n0}", _Gm.SlimeCreateGoldList[page]);
         }
     }
 
     public void UnlockBtn()
     {
-        if (_ui.Jelatine < _gm.JelatineList[page])
+        if (_Gm.jelatin < _Gm.JelatineList[page])
         {
-            _ui.ErrorPanel("해당 젤라틴 부족!");
+            _uiM.ErrorPanel("해당 젤라틴 부족!");
             return;
         }
 
         UnlockList[page] = true;
         SlimeChage();
 
-        _ui.Jelatine -= _gm.JelatineList[page];
+        _Gm.jelatin -= _Gm.JelatineList[page];
 
         PlayerPrefs.SetInt(page.ToString(), 1);
     }

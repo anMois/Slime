@@ -201,8 +201,8 @@ MonoBehaviour:
   level: 1
   TopLeft: {fileID: 0}
   BottomRight: {fileID: 0}
-  Gm: {fileID: 0}
-  Uim: {fileID: 0}
+  _Gm: {fileID: 0}
+  _uiM: {fileID: 0}
   ani: {fileID: 0}
   slime_sprite: {fileID: 0}
 --- !u!58 &2250735959487488438

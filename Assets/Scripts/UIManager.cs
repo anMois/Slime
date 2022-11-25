@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     #region 기본데이터
-    public int Gold;
-    public int Jelatine;
     public int SlimeCount;
     public int MaxSlime;
 
@@ -46,6 +44,8 @@ public class UIManager : MonoBehaviour
     GameObject option_Panel;
     GameObject error_Panel;
     public GameObject dm;
+
+    GameManager _Gm;
     #endregion
 
     private void Awake()
@@ -63,6 +63,8 @@ public class UIManager : MonoBehaviour
 
         _ani_Plant = GameObject.Find("Plant Panel").GetComponent<Animator>();
         _ani_Slime = GameObject.Find("SlimeCreate Panel").GetComponent<Animator>();
+
+        _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         isLive = true;
     }
@@ -85,8 +87,8 @@ public class UIManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        float gold_num = Mathf.SmoothStep(G_value, Gold, 0.5f);
-        float jelatine_num = Mathf.SmoothStep(J_value, Jelatine, 0.5f);
+        float gold_num = Mathf.SmoothStep(G_value, _Gm.gold, 0.5f);
+        float jelatine_num = Mathf.SmoothStep(J_value, _Gm.jelatin, 0.5f);
         
         gold_Text.text = String.Format("{0:n0}", gold_num);
         jelatine_Text.text = String.Format("{0:n0}", jelatine_num);
@@ -99,13 +101,13 @@ public class UIManager : MonoBehaviour
 
     public void MaxSlimeAdd()
     {
-        if (Gold < 500)
+        if (_Gm.gold < 500)
         {
             ErrorPanel("골드가 부족해요...");
             return;
-        } 
+        }
 
-        Gold -= 500;
+        _Gm.gold -= 500;
         MaxSlime += 5;
     }
 
@@ -179,7 +181,7 @@ public class UIManager : MonoBehaviour
 
     public void GoShop()
     {
-        dm.GetComponent<DataManager>().JsonSave();
+        DontDestroyOnLoad(_Gm);
         SceneManager.LoadScene("ShopScene");
     }
 }

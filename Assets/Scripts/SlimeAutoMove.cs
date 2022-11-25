@@ -18,8 +18,8 @@ public class SlimeAutoMove : MonoBehaviour
 
     public GameObject TopLeft;
     public GameObject BottomRight;
-    public GameManager Gm;
-    public UIManager Uim;
+    public GameManager _Gm;
+    public UIManager _uiM;
 
     Transform tl; //topleft 위치
     Transform br; //bottomright 위치
@@ -32,8 +32,8 @@ public class SlimeAutoMove : MonoBehaviour
     {
         TopLeft = GameObject.Find("Border Group/TopLeft");
         BottomRight = GameObject.Find("Border Group/BottomRight");
-        Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         ani = GetComponent<Animator>();
         slime_sprite = GetComponent<SpriteRenderer>();
@@ -46,8 +46,8 @@ public class SlimeAutoMove : MonoBehaviour
     {
         idle_Num = Random.Range(3.0f, 5.0f);
 
-        if (ani.runtimeAnimatorController != Gm.LevelAc[0])
-            ani.runtimeAnimatorController = Gm.LevelAc[0];
+        if (ani.runtimeAnimatorController != _Gm.LevelAc[0])
+            ani.runtimeAnimatorController = _Gm.LevelAc[0];
     }
 
     private void FixedUpdate()
@@ -60,19 +60,19 @@ public class SlimeAutoMove : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!Uim.isLive) return;
+        if (!_uiM.isLive) return;
 
         iswalk = false;
         ani.SetBool("isWalk", false);
         ani.SetTrigger("doTouch");
 
-        if (Uim.Jelatine < 9999999)
-            Uim.Jelatine += (id + 1) * level;
+        if (_Gm.jelatin < 9999999)
+            _Gm.jelatin += (id + 1) * level;
     }
 
     private void OnMouseDrag()
     {
-        if (!Uim.isLive) return;
+        if (!_uiM.isLive) return;
 
         pick_time += Time.deltaTime;
 
@@ -90,7 +90,7 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (!Uim.isLive) return;
+        if (!_uiM.isLive) return;
 
         pick_time = 0;
 
@@ -98,7 +98,7 @@ public class SlimeAutoMove : MonoBehaviour
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))
         {
             int n = Random.Range(0, 3);
-            transform.position = Gm.PointList[n];
+            transform.position = _Gm.PointList[n];
         }
     }
 
@@ -118,7 +118,7 @@ public class SlimeAutoMove : MonoBehaviour
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))
         {
             int n = Random.Range(0, 3); //지정된 위치 정하기
-            point = Gm.PointList[n];
+            point = _Gm.PointList[n];
             Vector3 v = point - transform.position;
             v.Normalize();
             v = v * 0.3f;

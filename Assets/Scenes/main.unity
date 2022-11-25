@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
-  jelatin: 0
+  jelatin: 1000
   slime_list: []
   slime_data_list: []
   slime_unlock_list: 
@@ -3242,8 +3242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2575b25503a0009458ddb1218b33609a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gold: 0
-  Jelatine: 1000
   SlimeCount: 0
   MaxSlime: 0
   isLive: 0

@@ -12,13 +12,13 @@ public class Create_Slime : MonoBehaviour
 
     int page;
 
-    UIManager _uiManager;
     GameManager _Gm;
+    UIManager _uiM;
 
     private void Awake()
     {
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _Gm = GetComponent<GameManager>();
+        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     private void Start()
@@ -29,34 +29,37 @@ public class Create_Slime : MonoBehaviour
 
     public void Create()
     {
-        if (_uiManager.MaxSlime <= _uiManager.SlimeCount)
+        if (_uiM.MaxSlime <= _uiM.SlimeCount)
         {
-            _uiManager.ErrorPanel("슬라임 과부화 상태!");
+            _uiM.ErrorPanel("슬라임 과부화 상태!");
             return;
         }
-        else if ((_uiManager.Gold < _Gm.SlimeCreateGoldList[page]) &&
-            (_uiManager.Gold - _Gm.SlimeCreateGoldList[page] < 0))
+        else if ((_Gm.gold < _Gm.SlimeCreateGoldList[page]) &&
+            (_Gm.gold - _Gm.SlimeCreateGoldList[page] < 0))
         {
-            _uiManager.ErrorPanel("해당 골드 부족!");
+            _uiM.ErrorPanel("해당 골드 부족!");
             return;
         }
 
+        int num = Random.Range(0, 3);
         page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
-
+        
         SlimeAutoMove _slm = obj.GetComponent<SlimeAutoMove>();
+        
         obj.name = "Slime" + page;
         _slm.id = page;
         _slm.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
+        Slime _slime = new Slime(_Gm.PointList[num], _slm.id, _slm.level);
 
-        PointCreate();
-        _uiManager.Gold -= _Gm.SlimeCreateGoldList[page];
-        _uiManager.SlimeCount++;
+        PointCreate(num);
+        _Gm.gold -= _Gm.SlimeCreateGoldList[page];
+        _Gm.slime_data_list.Add(_slime);
+        _Gm.slime_list.Add(_slm);
+        _uiM.SlimeCount++;
     }
 
-    void PointCreate()
+    void PointCreate(int num)
     {
-        int num = Random.Range(0, 3);
-
         if(isCrtCheck[num] == false)
         {
             Instantiate(obj, _Gm.PointList[num], Quaternion.identity);

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Invoke("LoadData", 0.1f);
+        //Invoke("LoadData", 0.1f);
     }
 
     void LoadData()
@@ -65,9 +65,8 @@ public class GameManager : MonoBehaviour
         anim.runtimeAnimatorController = LevelAc[level - 1];
     }
 
-
     private void OnApplicationQuit()
     {
-        dm.GetComponent<DataManager>().JsonSave();
+        //dm.GetComponent<DataManager>().JsonSave();
     }
 }
