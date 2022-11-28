@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class SlimeChangeImg : MonoBehaviour
 {
-    public bool[] UnlockList;
-
     public int page;
 
     #region ui
@@ -40,12 +38,13 @@ public class SlimeChangeImg : MonoBehaviour
         _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
 
-        for (int i = 0; i < UnlockList.Length; i++)
+        for (int i = 0; i < _Gm.slime_unlock_list.Length; i++)
         {
             if (PlayerPrefs.HasKey(i.ToString()))
-                UnlockList[i] = true;
+                _Gm.slime_unlock_list[i] = true;
         }
-        lockobj.SetActive(!UnlockList[page]);
+
+        lockobj.SetActive(!_Gm.slime_unlock_list[page]);
     }
     
     private void Start()
@@ -73,7 +72,7 @@ public class SlimeChangeImg : MonoBehaviour
 
     public void SlimeChage()
     {
-        if (!UnlockList[page])
+        if (!_Gm.slime_unlock_list[page])
         {
             lockobj.SetActive(true);
             locksimg.sprite = _Gm.SlimeSpriteList[page];
@@ -98,7 +97,7 @@ public class SlimeChangeImg : MonoBehaviour
             return;
         }
 
-        UnlockList[page] = true;
+        _Gm.slime_unlock_list[page] = true;
         SlimeChage();
 
         _Gm.jelatin -= _Gm.JelatineList[page];

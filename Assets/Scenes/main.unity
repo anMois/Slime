@@ -502,7 +502,6 @@ GameObject:
   m_Component:
   - component: {fileID: 370021975}
   - component: {fileID: 370021976}
-  - component: {fileID: 370021977}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -538,6 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   jelatin: 1000
+  slimeCount: 0
   slime_list: []
   slime_data_list: []
   slime_unlock_list: 
@@ -564,20 +564,7 @@ MonoBehaviour:
   LevelAc:
   - {fileID: 9100000, guid: 8c7845f2d3a629943afc1519da279300, type: 2}
   - {fileID: 9100000, guid: 0d3842a994495234589cb6d54c1215e2, type: 2}
---- !u!114 &370021977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370021974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d05f7d014674884984b43ae80b53f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 8349983534209854002, guid: 02ec2aac943b07e428c31d81b64dad1d, type: 3}
-  isCrtCheck: 
+  lockgroup: {fileID: 0}
 --- !u!1 &373387262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1467,7 @@ GameObject:
   - component: {fileID: 652691533}
   - component: {fileID: 652691532}
   m_Layer: 5
-  m_Name: Icon shadow (1)
+  m_Name: Plant shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1762,7 +1749,7 @@ GameObject:
   - component: {fileID: 726814739}
   - component: {fileID: 726814738}
   m_Layer: 5
-  m_Name: Slimeshadow
+  m_Name: Shopshadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2550,7 +2537,7 @@ GameObject:
   - component: {fileID: 1015930330}
   - component: {fileID: 1015930329}
   m_Layer: 5
-  m_Name: SlimeButton
+  m_Name: ShopButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3135,6 +3122,7 @@ GameObject:
   - component: {fileID: 1335412278}
   - component: {fileID: 1335412277}
   - component: {fileID: 1335412281}
+  - component: {fileID: 1335412282}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3242,7 +3230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2575b25503a0009458ddb1218b33609a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlimeCount: 0
   MaxSlime: 0
   isLive: 0
   isClick: 0
@@ -3250,7 +3237,21 @@ MonoBehaviour:
   slime_hideSp: {fileID: 21300000, guid: 4fbd7c08103668049829fe146a34e210, type: 3}
   plant_showSp: {fileID: 21300000, guid: 0cc98cf945627544e8761d70cbbbb24a, type: 3}
   plant_hideSp: {fileID: 21300000, guid: 1edfcc716ab5b4940a23aa75e0352142, type: 3}
-  dm: {fileID: 2055077923}
+--- !u!114 &1335412282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335412276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d05f7d014674884984b43ae80b53f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 8349983534209854002, guid: 02ec2aac943b07e428c31d81b64dad1d, type: 3}
+  isCrtCheck: 000000
+  _Gm: {fileID: 0}
 --- !u!1 &1392498457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,7 +3559,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 370021977}
+      - m_Target: {fileID: 1335412282}
         m_MethodName: Create
         m_Mode: 1
         m_Arguments:
@@ -4571,7 +4572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e548783c86858b4a80c312b7da50c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnlockList: 000000000000
   page: 0
   slimeimg: {fileID: 0}
   locksimg: {fileID: 0}
@@ -4801,7 +4801,7 @@ GameObject:
   - component: {fileID: 2018448301}
   - component: {fileID: 2018448300}
   m_Layer: 5
-  m_Name: Icon shadow
+  m_Name: Slime shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4965,7 +4965,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055077923}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7d037ab466d3514fb1208f8812fb3ba, type: 3}
   m_Name: 

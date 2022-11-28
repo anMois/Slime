@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     #region 기본데이터
-    public int SlimeCount;
     public int MaxSlime;
 
     int G_value;
@@ -43,7 +42,6 @@ public class UIManager : MonoBehaviour
     #region GameObject
     GameObject option_Panel;
     GameObject error_Panel;
-    public GameObject dm;
 
     GameManager _Gm;
     #endregion
@@ -71,7 +69,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        
         MaxSlime = 10;
     }
 
@@ -96,7 +93,7 @@ public class UIManager : MonoBehaviour
         G_value = (int)gold_num;
         J_value = (int)jelatine_num;
 
-        slimecount_Text.text = String.Format("{0} / {1}", SlimeCount, MaxSlime);
+        slimecount_Text.text = String.Format("{0} / {1}", _Gm.slimeCount, MaxSlime);
     }
 
     public void MaxSlimeAdd()
@@ -181,7 +178,7 @@ public class UIManager : MonoBehaviour
 
     public void GoShop()
     {
-        DontDestroyOnLoad(_Gm);
+        DataManager.instance.JsonSave();
         SceneManager.LoadScene("ShopScene");
     }
 }

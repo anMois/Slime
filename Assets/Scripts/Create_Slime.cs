@@ -12,12 +12,12 @@ public class Create_Slime : MonoBehaviour
 
     int page;
 
-    GameManager _Gm;
+    public GameManager _Gm;
     UIManager _uiM;
 
     private void Awake()
     {
-        _Gm = GetComponent<GameManager>();
+        _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
@@ -29,7 +29,7 @@ public class Create_Slime : MonoBehaviour
 
     public void Create()
     {
-        if (_uiM.MaxSlime <= _uiM.SlimeCount)
+        if (_uiM.MaxSlime <= _Gm.slimeCount)
         {
             _uiM.ErrorPanel("슬라임 과부화 상태!");
             return;
@@ -52,10 +52,10 @@ public class Create_Slime : MonoBehaviour
         Slime _slime = new Slime(_Gm.PointList[num], _slm.id, _slm.level);
 
         PointCreate(num);
-        _Gm.gold -= _Gm.SlimeCreateGoldList[page];
+        GameManager.instance.BuySlime(page);
         _Gm.slime_data_list.Add(_slime);
         _Gm.slime_list.Add(_slm);
-        _uiM.SlimeCount++;
+        _Gm.slimeCount++;
     }
 
     void PointCreate(int num)

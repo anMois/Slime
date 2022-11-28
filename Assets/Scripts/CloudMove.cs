@@ -17,9 +17,9 @@ public class CloudMove : MonoBehaviour
     {
         transform.Translate(new Vector3(speed * Time.deltaTime, 0));
 
-        if (transform.position.x > 7)
+        if (transform.position.x > 8)
         {
-            transform.localPosition = new Vector3(-7.0f, getY, 0);
+            transform.localPosition = new Vector3(-7.5f, getY, 0);
         }
     }
 }

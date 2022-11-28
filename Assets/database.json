@@ -1,6 +1,6 @@
 {
-    "jelatin": 0,
-    "gold": 0,
+    "jelatin": 1000,
+    "gold": 5000,
     "slime_unlock_list": [
         false,
         false,
@@ -9,5 +9,33 @@
         false,
         false
     ],
-    "slime_list": []
+    "slime_list": [
+        {
+            "id": 0,
+            "level": 1,
+            "pos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "id": 0,
+            "level": 1,
+            "pos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "id": 0,
+            "level": 1,
+            "pos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
 }

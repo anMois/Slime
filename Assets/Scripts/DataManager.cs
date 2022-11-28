@@ -14,7 +14,23 @@ public class SaveData
 
 public class DataManager : MonoBehaviour
 {
+    public static DataManager instance;
+
     string path;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     void Start()
     {
@@ -28,7 +44,7 @@ public class DataManager : MonoBehaviour
 
         if (!File.Exists(path))
         {
-            GameManager.instance.jelatin = 0;
+            GameManager.instance.jelatin = 1000;
             GameManager.instance.gold = 0;
             JsonSave();
         }
@@ -55,8 +71,8 @@ public class DataManager : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.slime_list.Count; ++i)
         {
-            SlimeAutoMove jelly = GameManager.instance.slime_list[i];
-            save_data.slime_list.Add(new Slime(jelly.gameObject.transform.position, jelly.id, jelly.level));
+            SlimeAutoMove slime = GameManager.instance.slime_list[i];
+            save_data.slime_list.Add(new Slime(slime.gameObject.transform.position, slime.id, slime.level));
         }
         for (int i = 0; i < GameManager.instance.slime_unlock_list.Length; ++i)
             save_data.slime_unlock_list[i] = GameManager.instance.slime_unlock_list[i];

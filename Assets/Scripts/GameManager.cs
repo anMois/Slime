@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public int gold;
     public int jelatin;
+    public int slimeCount;
     public List<SlimeAutoMove> slime_list;
     public List<Slime> slime_data_list;
     public bool[] slime_unlock_list;
@@ -21,25 +22,35 @@ public class GameManager : MonoBehaviour
 
     public RuntimeAnimatorController[] LevelAc;
 
-
     GameObject dm;
-    GameObject lockgroup;
+    public GameObject lockgroup;
     GameObject prefab;
     int page;
 
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
 
-        lockgroup = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().lockobj;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        lockgroup = GameObject.Find("Canvas/SlimeCreate Panel/Lock Group").transform.Find("Lock Group").gameObject;
         page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
-        prefab = GetComponent<Create_Slime>().obj;
+        prefab = GameObject.Find("Canvas").GetComponent<Create_Slime>().obj;
         dm = GameObject.Find("DataManager").gameObject;
+
+        slime_unlock_list = new bool[6];
     }
 
     private void Start()
     {
-        //Invoke("LoadData", 0.1f);
+        Invoke("LoadData", 0.1f);
     }
 
     void LoadData()
@@ -49,20 +60,26 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < slime_data_list.Count; ++i)
         {
             GameObject obj = Instantiate(prefab, slime_data_list[i].pos, Quaternion.identity);
-            SlimeAutoMove jelly = obj.GetComponent<SlimeAutoMove>();
-            jelly.id = slime_data_list[i].id;
-            jelly.level = slime_data_list[i].level;
-            jelly.slime_sprite.sprite = SlimeSpriteList[jelly.id];
-            jelly.ani.runtimeAnimatorController = LevelAc[jelly.level - 1];
-            obj.name = "Jelly " + jelly.id;
+            SlimeAutoMove slime = obj.GetComponent<SlimeAutoMove>();
+            slime.id = slime_data_list[i].id;
+            slime.level = slime_data_list[i].level;
+            slime.slime_sprite.sprite = SlimeSpriteList[slime.id];
+            slime.ani.runtimeAnimatorController = LevelAc[slime.level - 1];
+            obj.name = "Slime " + slime.id;
 
-            slime_list.Add(jelly);
+            slime_list.Add(slime);
         }
+        slimeCount = slime_list.Count;
     }
 
     public void ChangeAc(Animator anim, int level)
     {
         anim.runtimeAnimatorController = LevelAc[level - 1];
+    }
+
+    public void BuySlime(int num)
+    {
+        gold -= SlimeCreateGoldList[num];
     }
 
     private void OnApplicationQuit()
