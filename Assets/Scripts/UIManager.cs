@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     public bool isLive;
     public bool isClick;
+    public bool isSell;
 
     bool isSlimeCheck;
     bool isPlantCheck;
@@ -129,6 +130,7 @@ public class UIManager : MonoBehaviour
             slime_Img.sprite = slime_showSp;
         }
 
+        SoundManager.instance.PlayerSound("Button");
         isSlimeCheck = !isSlimeCheck;
         isLive = !isLive;
     }
@@ -154,6 +156,7 @@ public class UIManager : MonoBehaviour
             plant_Img.sprite = plant_showSp;
         }
 
+        SoundManager.instance.PlayerSound("Button");
         isPlantCheck = !isPlantCheck;
         isLive = !isLive;
     }
@@ -165,6 +168,10 @@ public class UIManager : MonoBehaviour
 
         option_Panel.SetActive(isOption);
         Time.timeScale = isOption == true ? 0 : 1;
+        if (isOption)
+            SoundManager.instance.PlayerSound("Pause In");
+        else
+            SoundManager.instance.PlayerSound("Button");
     }
 
     public void ErrorPanel(String msg)
@@ -174,11 +181,22 @@ public class UIManager : MonoBehaviour
 
         error_Panel.SetActive(isError);
         error_Text.text = msg;
+        if(isError)
+            SoundManager.instance.PlayerSound("Fail");
+        else
+            SoundManager.instance.PlayerSound("Button");
     }
 
-    public void GoShop()
+    public void Exit()
     {
         DataManager.instance.JsonSave();
-        SceneManager.LoadScene("ShopScene");
+        SoundManager.instance.PlayerSound("Pause Out");
+
+        Application.Quit();
+    }
+
+    public void SellCheck()
+    {
+        isSell = isSell == false;
     }
 }

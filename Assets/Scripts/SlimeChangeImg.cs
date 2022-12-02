@@ -57,6 +57,7 @@ public class SlimeChangeImg : MonoBehaviour
         if (page == 5)  return;
 
         ++page;
+        SoundManager.instance.PlayerSound("Button");
         SlimeChage();
         pagetext.text = String.Format("#{0:00}", page + 1);
     }
@@ -66,6 +67,7 @@ public class SlimeChangeImg : MonoBehaviour
         if (page == 0)  return;
 
         --page;
+        SoundManager.instance.PlayerSound("Button");
         SlimeChage();
         pagetext.text = String.Format("#{0:00}", page + 1);
     }
@@ -99,6 +101,7 @@ public class SlimeChangeImg : MonoBehaviour
 
         _Gm.slime_unlock_list[page] = true;
         SlimeChage();
+        SoundManager.instance.PlayerSound("Unlock");
 
         _Gm.jelatin -= _Gm.JelatineList[page];
 

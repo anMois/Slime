@@ -6,12 +6,15 @@ public class SlimeAutoMove : MonoBehaviour
 {
     public int id;      //슬라임 이미지순서
     public int level;   //레벨 => 애니메이션 컨트롤러
+    public float exp;   //경험치
 
     float speedX;   //움질일떄 x값
     float speedY;   //움질일떄 y값
     float walk_Num; //움직이는 시간
     float idle_Num; //기본상태에서 대기하는시간
     float pick_time;//마우스 버튼을 누른시간
+    float maxexp;   //최대 경험치
+    float shadow_y;
 
     bool iswalk = false;
     bool isidle = false;
@@ -24,6 +27,7 @@ public class SlimeAutoMove : MonoBehaviour
     Transform tl; //topleft 위치
     Transform br; //bottomright 위치
     Vector3 point; //돌아갈 위치
+    GameObject shadow; //캐릭터 그림자
 
     public Animator ani;
     public SpriteRenderer slime_sprite;
@@ -34,20 +38,43 @@ public class SlimeAutoMove : MonoBehaviour
         BottomRight = GameObject.Find("Border Group/BottomRight");
         _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
+        shadow = transform.Find("Shadow").gameObject;
 
         ani = GetComponent<Animator>();
         slime_sprite = GetComponent<SpriteRenderer>();
 
         tl = TopLeft.transform;
         br = BottomRight.transform;
+
+        switch (id)
+        {
+            case 0: shadow_y = -0.05f; break;
+            case 6: shadow_y = -0.12f; break;
+            case 3: shadow_y = -0.14f; break;
+            case 10: shadow_y = -0.16f; break;
+            case 11: shadow_y = -0.16f; break;
+            default: shadow_y = -0.05f; break;
+        }
+
+        shadow.transform.localPosition = new Vector3(0, shadow_y, 0);
+
+        maxexp = _Gm.SlimeExpList[_Gm.SlimeExpList.Length - 1];
     }
 
     private void Start()
     {
         idle_Num = Random.Range(3.0f, 5.0f);
+    }
 
-        if (ani.runtimeAnimatorController != _Gm.LevelAc[0])
-            ani.runtimeAnimatorController = _Gm.LevelAc[0];
+    private void Update()
+    {
+        if (exp < maxexp)   exp += Time.deltaTime;
+
+        if (exp > _Gm.SlimeExpList[level - 1] && level < _Gm.LevelAc.Length)
+        {
+            _Gm.ChangeAc(ani, ++level);
+            SoundManager.instance.PlayerSound("Grow");
+        }
     }
 
     private void FixedUpdate()
@@ -58,7 +85,7 @@ public class SlimeAutoMove : MonoBehaviour
             SlimeMove();
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         if (!_uiM.isLive) return;
 
@@ -66,8 +93,10 @@ public class SlimeAutoMove : MonoBehaviour
         ani.SetBool("isWalk", false);
         ani.SetTrigger("doTouch");
 
-        if (_Gm.jelatin < 9999999)
-            _Gm.jelatin += (id + 1) * level;
+        if (exp < maxexp)   ++exp;
+
+        _Gm.GetJelatin(id, level);
+        SoundManager.instance.PlayerSound("Touch");
     }
 
     private void OnMouseDrag()
@@ -93,6 +122,14 @@ public class SlimeAutoMove : MonoBehaviour
         if (!_uiM.isLive) return;
 
         pick_time = 0;
+
+        if(_uiM.isSell)
+        {
+            _Gm.GetGold(id, level, this);
+
+            Destroy(gameObject);
+        }
+
 
         if ((transform.position.x < tl.position.x || transform.position.x > br.position.x) ||
             (transform.position.y > tl.position.y || transform.position.y < br.position.y))

@@ -8,6 +8,8 @@ public class SaveData
 {
     public int jelatin;
     public int gold;
+    public float bgm_num;
+    public float sfx_num;
     public bool[] slime_unlock_list = new bool[6];
     public List<Slime> slime_list = new List<Slime>();
 }
@@ -16,6 +18,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
 
+    
     string path;
 
     private void Awake()
@@ -45,7 +48,9 @@ public class DataManager : MonoBehaviour
         if (!File.Exists(path))
         {
             GameManager.instance.jelatin = 1000;
-            GameManager.instance.gold = 0;
+            GameManager.instance.gold = 100;
+            SoundManager.instance.bgmSlider.value = 0.5f;
+            SoundManager.instance.sfxSlider.value = 0.5f;
             JsonSave();
         }
         else
@@ -61,6 +66,9 @@ public class DataManager : MonoBehaviour
                     GameManager.instance.slime_unlock_list[i] = save_data.slime_unlock_list[i];
                 GameManager.instance.jelatin = save_data.jelatin;
                 GameManager.instance.gold = save_data.gold;
+                SoundManager.instance.bgmSlider.value = save_data.bgm_num;
+                SoundManager.instance.sfxSlider.value = save_data.sfx_num;
+
             }
         }
     }
@@ -72,12 +80,15 @@ public class DataManager : MonoBehaviour
         for (int i = 0; i < GameManager.instance.slime_list.Count; ++i)
         {
             SlimeAutoMove slime = GameManager.instance.slime_list[i];
-            save_data.slime_list.Add(new Slime(slime.gameObject.transform.position, slime.id, slime.level));
+            save_data.slime_list.Add(new Slime(slime.transform.position,
+                slime.id, slime.level, slime.exp));
         }
         for (int i = 0; i < GameManager.instance.slime_unlock_list.Length; ++i)
             save_data.slime_unlock_list[i] = GameManager.instance.slime_unlock_list[i];
         save_data.jelatin = GameManager.instance.jelatin;
         save_data.gold = GameManager.instance.gold;
+        save_data.bgm_num = SoundManager.instance.bgmSlider.value;
+        save_data.sfx_num = SoundManager.instance.sfxSlider.value;
 
         string json = JsonUtility.ToJson(save_data, true);
 

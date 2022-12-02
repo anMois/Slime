@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Create_Slime : MonoBehaviour
 {
-    public GameObject obj;
+    public GameObject slime_prefap;
 
     public bool[] isCrtCheck;
 
@@ -34,35 +34,38 @@ public class Create_Slime : MonoBehaviour
             _uiM.ErrorPanel("슬라임 과부화 상태!");
             return;
         }
-        else if ((_Gm.gold < _Gm.SlimeCreateGoldList[page]) &&
-            (_Gm.gold - _Gm.SlimeCreateGoldList[page] < 0))
+
+        int num = Random.Range(0, 3);
+        page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
+
+        if (GameManager.instance.BuySlime(page))
+        {
+            GameObject obj = PointCreate(num);
+            SoundManager.instance.PlayerSound("Buy");
+            SlimeAutoMove _slm = obj.GetComponent<SlimeAutoMove>();
+            obj.name = "Slime " + page;
+            _slm.id = page;
+            _slm.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
+
+            Slime _slime = new Slime(_Gm.PointList[num], _slm.id, _slm.level, _slm.exp);
+
+            _Gm.slime_data_list.Add(_slime);
+            _Gm.slime_list.Add(_slm);
+            _Gm.slimeCount++;
+        }
+        else
         {
             _uiM.ErrorPanel("해당 골드 부족!");
             return;
         }
-
-        int num = Random.Range(0, 3);
-        page = GameObject.Find("Canvas/SlimeCreate Panel").GetComponent<SlimeChangeImg>().page;
-        
-        SlimeAutoMove _slm = obj.GetComponent<SlimeAutoMove>();
-        
-        obj.name = "Slime" + page;
-        _slm.id = page;
-        _slm.GetComponent<SpriteRenderer>().sprite = _Gm.SlimeSpriteList[page];
-        Slime _slime = new Slime(_Gm.PointList[num], _slm.id, _slm.level);
-
-        PointCreate(num);
-        GameManager.instance.BuySlime(page);
-        _Gm.slime_data_list.Add(_slime);
-        _Gm.slime_list.Add(_slm);
-        _Gm.slimeCount++;
     }
 
-    void PointCreate(int num)
+    GameObject PointCreate(int num)
     {
         if(isCrtCheck[num] == false)
         {
-            Instantiate(obj, _Gm.PointList[num], Quaternion.identity);
+            GameObject obj = Instantiate(slime_prefap, _Gm.PointList[num], Quaternion.identity);
+
             for (int i = 0; i < isCrtCheck.Length; i++)
             {
                 if(isCrtCheck[i] == true)
@@ -72,6 +75,7 @@ public class Create_Slime : MonoBehaviour
             }
             isCrtCheck[num] = true;
 
+            return obj;
         }
         else
         {
@@ -86,7 +90,9 @@ public class Create_Slime : MonoBehaviour
                     {
                         int[] CrtSlArr = CrtSlIndex.ToArray();
                         int n = Random.Range(0, CrtSlIndex.Count);
-                        Instantiate(obj, _Gm.PointList[CrtSlArr[n]], Quaternion.identity);
+
+                        GameObject obj = Instantiate(slime_prefap, _Gm.PointList[CrtSlArr[n]], Quaternion.identity);
+
                         for (int j = 0; j < isCrtCheck.Length; j++)
                         {
                             if (isCrtCheck[j] == true)
@@ -95,9 +101,13 @@ public class Create_Slime : MonoBehaviour
                             }
                         }
                         isCrtCheck[CrtSlArr[n]] = true;
+
+                        return obj;
                     }
                 }
             }
+
+            return null;
         }
     }
 }

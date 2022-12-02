@@ -34,7 +34,6 @@ public class ShopManager : MonoBehaviour
 
     public void GoHome()
     {
-        DataManager.instance.JsonSave();
         SceneManager.LoadScene("main");
     }
 }

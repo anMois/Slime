@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   level: 1
+  exp: 0
   TopLeft: {fileID: 0}
   BottomRight: {fileID: 0}
   _Gm: {fileID: 0}
