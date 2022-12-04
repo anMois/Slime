@@ -22,7 +22,7 @@ public class SlimeAutoMove : MonoBehaviour
     public GameObject TopLeft;
     public GameObject BottomRight;
     public GameManager _Gm;
-    public UIManager _uiM;
+    public UIManager _Uim;
 
     Transform tl; //topleft 위치
     Transform br; //bottomright 위치
@@ -37,7 +37,7 @@ public class SlimeAutoMove : MonoBehaviour
         TopLeft = GameObject.Find("Border Group/TopLeft");
         BottomRight = GameObject.Find("Border Group/BottomRight");
         _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
         shadow = transform.Find("Shadow").gameObject;
 
         ani = GetComponent<Animator>();
@@ -87,7 +87,7 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!_uiM.isLive) return;
+        if (!_Uim.isLive) return;
 
         iswalk = false;
         ani.SetBool("isWalk", false);
@@ -101,7 +101,7 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (!_uiM.isLive) return;
+        if (!_Uim.isLive) return;
 
         pick_time += Time.deltaTime;
 
@@ -119,11 +119,11 @@ public class SlimeAutoMove : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (!_uiM.isLive) return;
+        if (!_Uim.isLive) return;
 
         pick_time = 0;
 
-        if(_uiM.isSell)
+        if(_Uim.isSell)
         {
             _Gm.GetGold(id, level, this);
 

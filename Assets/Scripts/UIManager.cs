@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public bool isLive;
     public bool isClick;
     public bool isSell;
+    public bool isDoblgd;
 
     bool isSlimeCheck;
     bool isPlantCheck;
@@ -28,6 +29,13 @@ public class UIManager : MonoBehaviour
     Text jelatine_Text;
     Text slimecount_Text;
     Text error_Text;
+    public Text doblgb_subText;
+    public Text doblgbbtn_Text;
+    public Text click_subText;
+    public Text clickbtn_Text;
+
+    public Button doblgbBtn;
+    public Button clickBtn;
 
     public Sprite slime_showSp;
     public Sprite slime_hideSp;
@@ -53,6 +61,10 @@ public class UIManager : MonoBehaviour
         jelatine_Text = GameObject.Find("Jelatine/Text").GetComponent<Text>();
         slimecount_Text = GameObject.Find("SlimeCount/Text").GetComponent<Text>();
         error_Text = GameObject.Find("Canvas").transform.Find("Error Panel/Text").GetComponent<Text>();
+        click_subText = GameObject.Find("Plant Panel/Click Group/Sub Text").GetComponent<Text>();
+        clickbtn_Text = GameObject.Find("Plant Panel/Click Group/Button/Text").GetComponent<Text>();
+        doblgb_subText = GameObject.Find("Plant Panel/DoubleGold Group/Sub Text").GetComponent<Text>();
+        doblgbbtn_Text = GameObject.Find("Plant Panel/DoubleGold Group/Button/Text").GetComponent<Text>();
 
         slime_Img = GameObject.Find("LeftBtn/Slime Button").GetComponent<Image>();
         plant_Img = GameObject.Find("LeftBtn/Plant Button").GetComponent<Image>();
@@ -95,6 +107,7 @@ public class UIManager : MonoBehaviour
         J_value = (int)jelatine_num;
 
         slimecount_Text.text = String.Format("{0} / {1}", _Gm.slimeCount, MaxSlime);
+        doblgb_subText.text = "더 먹는 횟수 " + _Gm.doblgdcount;
     }
 
     public void MaxSlimeAdd()
@@ -185,6 +198,48 @@ public class UIManager : MonoBehaviour
             SoundManager.instance.PlayerSound("Fail");
         else
             SoundManager.instance.PlayerSound("Button");
+    }
+
+    public void ClickUpgrade()
+    {
+        _Gm.ClickCheck();
+
+        ClickContect();
+        SoundManager.instance.PlayerSound("Button");
+    }
+
+    public void DoubleGdUpgrad()
+    {
+        isDoblgd = _Gm.doblgdcount != 0 ? isDoblgd : !isDoblgd;
+
+        if (isDoblgd)
+        {
+            if(_Gm.doblgdcount == 0)
+            {
+                _Gm.DoubleGdCheck();
+                DoubleGdContect();
+                SoundManager.instance.PlayerSound("Button");
+            }
+
+        }
+    }
+
+    public void ClickContect()
+    {
+        click_subText.text = "클릭 생산량 x" + _Gm.clicklv;
+
+        if (_Gm.clicklv >= _Gm.ClickList.Length) clickBtn.gameObject.SetActive(false);
+        else
+            clickbtn_Text.text = String.Format("{0:n0}", _Gm.ClickList[_Gm.clicklv]);
+    }
+
+    public void DoubleGdContect()
+    {
+        doblgb_subText.text = "더 먹는 횟수 " + _Gm.doblgdcount;
+
+        if (_Gm.doblgdlv >= _Gm.DobGoldList.Length) _Gm.doblgdlv = _Gm.DobGoldList.Length;
+
+        doblgbbtn_Text.text = String.Format("{0:n0}", _Gm.DobGoldList[_Gm.doblgdlv]);
     }
 
     public void Exit()

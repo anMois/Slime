@@ -13,12 +13,12 @@ public class Create_Slime : MonoBehaviour
     int page;
 
     public GameManager _Gm;
-    UIManager _uiM;
+    UIManager _Uim;
 
     private void Awake()
     {
         _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     private void Start()
@@ -29,9 +29,9 @@ public class Create_Slime : MonoBehaviour
 
     public void Create()
     {
-        if (_uiM.MaxSlime <= _Gm.slimeCount)
+        if (_Uim.MaxSlime <= _Gm.slimeCount)
         {
-            _uiM.ErrorPanel("슬라임 과부화 상태!");
+            _Uim.ErrorPanel("슬라임 과부화 상태!");
             return;
         }
 
@@ -55,7 +55,7 @@ public class Create_Slime : MonoBehaviour
         }
         else
         {
-            _uiM.ErrorPanel("해당 골드 부족!");
+            _Uim.ErrorPanel("해당 골드 부족!");
             return;
         }
     }

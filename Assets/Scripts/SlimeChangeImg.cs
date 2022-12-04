@@ -21,7 +21,7 @@ public class SlimeChangeImg : MonoBehaviour
     public GameObject lockobj;     //잠겨있는 슬라임 오브젝트
 
     GameManager _Gm;
-    UIManager _uiM;
+    UIManager _Uim;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class SlimeChangeImg : MonoBehaviour
         conditiontext = GameObject.Find("Lock Group").transform.Find("Lock Group/Button/Text").GetComponent<Text>();
 
         _Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _uiM = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _Uim = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         for (int i = 0; i < _Gm.slime_unlock_list.Length; i++)
         {
@@ -95,12 +95,13 @@ public class SlimeChangeImg : MonoBehaviour
     {
         if (_Gm.jelatin < _Gm.JelatineList[page])
         {
-            _uiM.ErrorPanel("해당 젤라틴 부족!");
+            _Uim.ErrorPanel("해당 젤라틴 부족!");
             return;
         }
 
         _Gm.slime_unlock_list[page] = true;
         SlimeChage();
+        _Gm.ClearCheack();
         SoundManager.instance.PlayerSound("Unlock");
 
         _Gm.jelatin -= _Gm.JelatineList[page];

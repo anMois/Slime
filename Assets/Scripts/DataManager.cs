@@ -8,8 +8,12 @@ public class SaveData
 {
     public int jelatin;
     public int gold;
+    public int clicklv;
+    public int doblgdlv;
+    public int doblgdcount;
     public float bgm_num;
     public float sfx_num;
+    public bool isclear;
     public bool[] slime_unlock_list = new bool[6];
     public List<Slime> slime_list = new List<Slime>();
 }
@@ -17,7 +21,6 @@ public class SaveData
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
-
     
     string path;
 
@@ -49,6 +52,10 @@ public class DataManager : MonoBehaviour
         {
             GameManager.instance.jelatin = 1000;
             GameManager.instance.gold = 100;
+            GameManager.instance.clicklv = 1;
+            GameManager.instance.doblgdlv = 1;
+            GameManager.instance.doblgdcount = 0;
+            GameManager.instance.isClear = false;
             SoundManager.instance.bgmSlider.value = 0.5f;
             SoundManager.instance.sfxSlider.value = 0.5f;
             JsonSave();
@@ -66,9 +73,12 @@ public class DataManager : MonoBehaviour
                     GameManager.instance.slime_unlock_list[i] = save_data.slime_unlock_list[i];
                 GameManager.instance.jelatin = save_data.jelatin;
                 GameManager.instance.gold = save_data.gold;
+                GameManager.instance.clicklv = save_data.clicklv;
+                GameManager.instance.doblgdlv = save_data.doblgdlv;
+                GameManager.instance.doblgdcount = save_data.doblgdcount;
+                GameManager.instance.isClear = save_data.isclear;
                 SoundManager.instance.bgmSlider.value = save_data.bgm_num;
                 SoundManager.instance.sfxSlider.value = save_data.sfx_num;
-
             }
         }
     }
@@ -87,6 +97,10 @@ public class DataManager : MonoBehaviour
             save_data.slime_unlock_list[i] = GameManager.instance.slime_unlock_list[i];
         save_data.jelatin = GameManager.instance.jelatin;
         save_data.gold = GameManager.instance.gold;
+        save_data.clicklv = GameManager.instance.clicklv;
+        save_data.doblgdlv = GameManager.instance.doblgdlv;
+        save_data.doblgdcount = GameManager.instance.doblgdcount;
+        save_data.isclear = GameManager.instance.isClear;
         save_data.bgm_num = SoundManager.instance.bgmSlider.value;
         save_data.sfx_num = SoundManager.instance.sfxSlider.value;
 

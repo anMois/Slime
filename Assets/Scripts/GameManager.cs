@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int jelatin;
     public int slimeCount;
+    public int clicklv;
+    public int doblgdlv;
+    public int doblgdcount;
+    public bool isClear;
     public List<SlimeAutoMove> slime_list = new List<SlimeAutoMove>();
     public List<Slime> slime_data_list = new List<Slime>();
     public bool[] slime_unlock_list;
@@ -18,6 +22,8 @@ public class GameManager : MonoBehaviour
     public string[] SlimeNameList;
     public int[] SlimeCreateGoldList;
     public int[] JelatineList;
+    public int[] DobGoldList;
+    public int[] ClickList;
     public float[] SlimeExpList;
 
     public Vector3[] PointList;
@@ -25,8 +31,9 @@ public class GameManager : MonoBehaviour
     public RuntimeAnimatorController[] LevelAc;
 
     public GameObject lockgroup;
-    public DataManager _Dm;
+    public UIManager _Uim;
     public GameObject prefab;
+    public GameObject ClearImg;
     int page;
     int maxGold;
     int maxJelatin;
@@ -73,7 +80,11 @@ public class GameManager : MonoBehaviour
 
             slime_list.Add(slime);
         }
+
         slimeCount = slime_list.Count;
+        if (isClear) ClearImg.SetActive(isClear);
+        _Uim.ClickContect();
+        _Uim.DoubleGdContect();
     }
 
     public void ChangeAc(Animator anim, int level)
@@ -83,7 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void GetJelatin(int id, int level)
     {
-        jelatin += (id + 1) * level;
+        jelatin += (id + 1) * level * clicklv;
 
         if (jelatin > maxJelatin)
         {
@@ -94,7 +105,12 @@ public class GameManager : MonoBehaviour
 
     public void GetGold(int id, int level, SlimeAutoMove slime)
     {
-        gold += SlimeCreateGoldList[id] * level;
+        if (_Uim.isDoblgd && doblgdcount != 0)
+        {
+            gold += SlimeCreateGoldList[id] * level * 2;
+            doblgdcount--;
+        }
+        else gold += SlimeCreateGoldList[id] * level;
         SoundManager.instance.PlayerSound("Sell");
         slimeCount--;
         slime_list.Remove(slime);
@@ -118,8 +134,39 @@ public class GameManager : MonoBehaviour
             return false;
     }
 
+    public void ClickCheck()
+    {
+        if (gold < ClickList[clicklv]) return;
+
+        gold -= ClickList[clicklv++];
+    }
+
+    public void DoubleGdCheck()
+    {
+        if (gold < DobGoldList[doblgdlv]) return;
+
+        gold -= DobGoldList[doblgdlv++];
+
+        doblgdcount = Random.Range(2, 10);
+    }
+
+    public void ClearCheack()
+    {
+        List<bool> clearlist = new List<bool>();
+        for (int i = 0; i < slime_unlock_list.Length; i++)
+        {
+            if (slime_unlock_list[i]) clearlist.Add(slime_unlock_list[i]);
+            
+            if(clearlist.Count == slime_unlock_list.Length)
+            {
+                isClear = !isClear;
+                ClearImg.SetActive(isClear);
+            }
+        }
+    }
+
     private void OnApplicationQuit()
     {
-        _Dm.GetComponent<DataManager>().JsonSave();
+        DataManager.instance.JsonSave();
     }
 }
